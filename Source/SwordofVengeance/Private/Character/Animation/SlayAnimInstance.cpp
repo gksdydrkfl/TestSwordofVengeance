@@ -8,6 +8,7 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
+#include "TargetSystem/TargetSystemComponent.h"
 
 USlayAnimInstance::USlayAnimInstance() :
 	Speed(0.f),
@@ -43,8 +44,7 @@ void USlayAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 
 	CharacterState = Slay->GetCharacterState();
 	ActionState = Slay->GetActionState();
-
-	bBattleMode = Slay->GetBattleMode();
+	bLockOn = Slay->GetTargetSystem()->GetRockOn();
 	FindDirection();
 }
 

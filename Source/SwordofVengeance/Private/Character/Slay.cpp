@@ -24,8 +24,7 @@ ASlay::ASlay() :
 	CombatStateTime(15.f),
 	bBattleMode(false),
 	LastInputDirection(FVector::ZeroVector),
-	RollingDirection(FVector::ZeroVector),
-	BattleState(EBattleState::EBS_Idle)
+	RollingDirection(FVector::ZeroVector)
 {
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	CameraBoom->SetupAttachment(RootComponent);
@@ -235,6 +234,7 @@ void ASlay::TargetLookOn(const FInputActionValue& Value)
 
 			SetLinkAnimClassLayers(NonCombatAnimClassLayers);
 		}
+
 	}
 }
 
@@ -314,10 +314,6 @@ UTargetSystemComponent* ASlay::GetTargetSystem() const
 	return TargetSystem;
 }
 
-EBattleState ASlay::GetBattleState() const
-{
-	return BattleState;
-}
 
 void ASlay::AttachWeaponToSocket(const FName& SocketName)
 {

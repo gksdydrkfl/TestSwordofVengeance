@@ -93,7 +93,6 @@ private:
 
 	FVector RollingDirection;
 
-	EBattleState BattleState;
 protected:
 
 	void Move(const FInputActionValue& Vaslue);
@@ -114,8 +113,8 @@ public:
 	AWeapon* GetCurrentWeapon() const;
 	bool GetBattleMode() const;
 	FVector GetLastInputDirection() const;
+	UFUNCTION(BlueprintCallable)
 	UTargetSystemComponent* GetTargetSystem() const;
-	EBattleState GetBattleState() const;
 
 public:
 

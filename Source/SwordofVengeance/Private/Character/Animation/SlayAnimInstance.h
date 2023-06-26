@@ -59,7 +59,7 @@ private:
 	EDirectionState DirectionState;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "CharacterState", meta = (AllowPrivateAccess = true))
-	bool bBattleMode;
+	bool bLockOn;
 
 public:
 

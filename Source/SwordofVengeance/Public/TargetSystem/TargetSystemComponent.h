@@ -52,7 +52,7 @@ private:
 
 	UWidgetComponent* LockOnWidgetComponent;
 public:
-
+	UFUNCTION(BlueprintCallable)
 	bool GetRockOn() const;
 
 	float GetDistanceForTarget(AActor* TargetActor) const;
