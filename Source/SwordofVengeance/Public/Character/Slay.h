@@ -17,7 +17,7 @@ class AWeapon;
 class USlayAnimInstance;
 class UMotionWarpingComponent;
 class UTargetSystemComponent;
-
+class USkillSystemComponent;
 
 UCLASS()
 class SWORDOFVENGEANCE_API ASlay : public ACharacter, public ITargetSystemInterface
@@ -93,6 +93,8 @@ private:
 
 	FVector RollingDirection;
 
+	UPROPERTY(VisibleAnywhere, Category = "Skill System", meta = (AllowPrivateAccess = true))
+	USkillSystemComponent* SkillSystem;
 protected:
 
 	void Move(const FInputActionValue& Vaslue);

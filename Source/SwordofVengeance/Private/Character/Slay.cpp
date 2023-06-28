@@ -15,6 +15,7 @@
 #include "Kismet/KismetSystemLibrary.h"
 #include "TargetSystem/TargetSystemComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "SkillSystem/SkillSystemComponent.h"
 
 ASlay::ASlay() :
 	ActionState(EActionState::EAS_None),
@@ -44,10 +45,13 @@ ASlay::ASlay() :
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.0f, 720.f, 0.0f);
+	GetCharacterMovement()->MaxWalkSpeed = 180.f;
 
 	MotionWarpingComp = CreateDefaultSubobject<UMotionWarpingComponent>(TEXT("MotionWarpingComp"));
 
 	TargetSystem = CreateDefaultSubobject<UTargetSystemComponent>(TEXT("TargetSystem"));
+
+	SkillSystem = CreateDefaultSubobject<USkillSystemComponent>(TEXT("SkillSystem"));
 }
 
 void ASlay::BeginPlay()
@@ -353,43 +357,43 @@ void ASlay::UpdateMotionWarping()
 		LastLocation = GetActorForwardVector();
 	}
 
-	FHitResult HitResult;
-	const FVector Start = GetActorLocation() + (LastLocation * 34.f);
-	const FVector End = Start + (LastLocation * 100.f);
+	//FHitResult HitResult;
+	//const FVector Start = GetActorLocation() + (LastLocation * 34.f);
+	//const FVector End = Start + (LastLocation * 100.f);
 
-	TArray<TEnumAsByte<EObjectTypeQuery>> ObjectTypes;
-	TEnumAsByte<EObjectTypeQuery> ColiisionWorldStatic = UEngineTypes::ConvertToObjectType(ECollisionChannel::ECC_WorldStatic);
-	TEnumAsByte<EObjectTypeQuery> CollisionPawn = UEngineTypes::ConvertToObjectType(ECollisionChannel::ECC_Pawn);
+	//TArray<TEnumAsByte<EObjectTypeQuery>> ObjectTypes;
+	//TEnumAsByte<EObjectTypeQuery> ColiisionWorldStatic = UEngineTypes::ConvertToObjectType(ECollisionChannel::ECC_WorldStatic);
+	//TEnumAsByte<EObjectTypeQuery> CollisionPawn = UEngineTypes::ConvertToObjectType(ECollisionChannel::ECC_Pawn);
 
-	ObjectTypes.Add(ColiisionWorldStatic);
-	ObjectTypes.Add(CollisionPawn);
+	//ObjectTypes.Add(ColiisionWorldStatic);
+	//ObjectTypes.Add(CollisionPawn);
 
-	TArray<AActor*> IgnoreActor;
+	//TArray<AActor*> IgnoreActor;
 
 
-	IgnoreActor.Add(this);
+	//IgnoreActor.Add(this);
 
-	UKismetSystemLibrary::SphereTraceSingleForObjects(
-		GetWorld(),
-		Start,
-		End,
-		34.f,
-		ObjectTypes,
-		false,
-		IgnoreActor,
-		EDrawDebugTrace::Type::ForDuration,
-		HitResult,
-		true
-	);
+	//UKismetSystemLibrary::SphereTraceSingleForObjects(
+	//	GetWorld(),
+	//	Start,
+	//	End,
+	//	34.f,
+	//	ObjectTypes,
+	//	false,
+	//	IgnoreActor,
+	//	EDrawDebugTrace::Type::ForDuration,
+	//	HitResult,
+	//	true
+	//);
 
-	if (HitResult.bBlockingHit)
-	{
-		MotionWarpingTargectDistance = HitResult.Distance;
-	}
-	else
-	{
-		MotionWarpingTargectDistance = 100.f;
-	}
+	//if (HitResult.bBlockingHit)
+	//{
+	//	MotionWarpingTargectDistance = HitResult.Distance;
+	//}
+	//else
+	//{
+	//	MotionWarpingTargectDistance = 100.f;
+	//}
 
 	const FVector Location = GetActorLocation();
 	const FVector TargetLocation = (LastLocation.GetSafeNormal() * MotionWarpingTargectDistance) + Location;
