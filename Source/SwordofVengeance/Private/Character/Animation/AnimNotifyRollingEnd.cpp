@@ -3,6 +3,8 @@
 
 #include "Character/Animation/AnimNotifyRollingEnd.h"
 #include "Character/Slay.h"
+#include "SkillSystem/SkillSystemComponent.h"
+#include "SkillSystem/Skill/KatanaBaseAttack.h"
 
 void UAnimNotifyRollingEnd::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference)
 {
@@ -12,6 +14,18 @@ void UAnimNotifyRollingEnd::Notify(USkeletalMeshComponent* MeshComp, UAnimSequen
 
 	if (Slay)
 	{
-		Slay->ResetComboAttack();
+		USkillSystemComponent* SkillSystem = Slay->GetSkillSystem();
+		if (SkillSystem)
+		{
+			USkill** Skill = SkillSystem->GetSkills().Find(ESkillType::EST_KatanaBaseAttack);
+			if (Skill)
+			{
+				UKatanaBaseAttack* KatanaBaseAttack = Cast<UKatanaBaseAttack>(*Skill);
+				if (KatanaBaseAttack)
+				{
+					KatanaBaseAttack->ResetComboAttack();
+				}
+			}
+		}
 	}
 }

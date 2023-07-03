@@ -28,5 +28,7 @@ private:
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = true))
 	UStaticMeshComponent* ItemMesh;
 
+public:
 
+	FORCEINLINE UStaticMeshComponent* GetItemMesh() { return ItemMesh; }
 };

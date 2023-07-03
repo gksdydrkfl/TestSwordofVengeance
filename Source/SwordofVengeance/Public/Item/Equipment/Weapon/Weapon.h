@@ -7,6 +7,9 @@
 #include "Item/Item.h"
 #include "Weapon.generated.h"
 
+class UBoxComponent;
+class ASlay;
+
 UCLASS()
 class SWORDOFVENGEANCE_API AWeapon : public AItem
 {
@@ -28,9 +31,31 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Animation Layer", meta = (AllowPrivateAccess = true))
 	TSubclassOf<UAnimInstance> CombatAnimClassLayers;
 
+	ASlay* Slay;
+
+protected:
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Collision", meta = (AllowPrivateAccess = true))
+	UBoxComponent* BoxCollision;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	USceneComponent* BoxCollisionStart;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	USceneComponent* BoxCollisionEnd;
 public:
 
 	FORCEINLINE TSubclassOf<UAnimInstance> GetNonCombatAnimClassLayers() { return NonCombatAnimClassLayers; }
 	FORCEINLINE TSubclassOf<UAnimInstance> GetCombatAnimClassLayers() { return CombatAnimClassLayers; }
 
+	void EnabledBoxCollision(ECollisionEnabled::Type NewType);
+	void DisabledBoxCollision(ECollisionEnabled::Type NewType);
+
+	FORCEINLINE void SetCharacter(ASlay* NewSlay) { Slay = NewSlay; }
+
+public:
+
+	UFUNCTION()
+	void OnBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	UFUNCTION()
+	void EndBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 };

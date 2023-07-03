@@ -2,7 +2,9 @@
 
 
 #include "SkillSystem/SkillSystemComponent.h"
-
+#include "SkillSystem/Skill/Skill.h"
+#include "SkillSystem/Skill/KatanaBaseAttack.h"
+#include "SwordofVengeance/DebugMacro.h"
 // Sets default values for this component's properties
 USkillSystemComponent::USkillSystemComponent()
 {
@@ -22,6 +24,53 @@ void USkillSystemComponent::BeginPlay()
 	// ...
 	
 }
+
+void USkillSystemComponent::Init(ASlay* Slay)
+{
+	UKatanaBaseAttack* KatanaBaseAttack = NewObject<UKatanaBaseAttack>(UKatanaBaseAttack::StaticClass());
+	if (KatanaBaseAttack)
+	{
+		KatanaBaseAttack->Init(Slay);
+
+		Skills.Add(ESkillType::EST_KatanaBaseAttack, KatanaBaseAttack);
+	}
+}
+
+void USkillSystemComponent::StartSkill(const ESkillType& SkillType)
+{
+	USkill* NewSkill = GetSkill(SkillType);
+
+	if (NewSkill)
+	{
+		switch (SkillType)
+		{
+		case ESkillType::EST_KatanaBaseAttack:
+			Debug::Log("Skill");
+			UKatanaBaseAttack* KatanaBaseAttack = Cast<UKatanaBaseAttack>(NewSkill);
+			if (KatanaBaseAttack)
+			{
+				KatanaBaseAttack->StartSkill();
+			}
+			break;
+		}
+	}
+}
+
+USkill* USkillSystemComponent::GetSkill(const ESkillType& SkillType)
+{
+	if (Skills.Contains(SkillType))
+	{
+		USkill** Skill = Skills.Find(SkillType);
+
+		if (*Skill)
+		{
+			return (*Skill);
+		}
+
+	}
+	return nullptr;
+}
+
 
 
 // Called every frame

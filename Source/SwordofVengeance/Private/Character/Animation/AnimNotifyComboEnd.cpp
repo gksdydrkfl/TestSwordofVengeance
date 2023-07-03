@@ -3,7 +3,8 @@
 
 #include "Character/Animation/AnimNotifyComboEnd.h"
 #include "Character/Slay.h"
-
+#include "SkillSystem/SkillSystemComponent.h"
+#include "SkillSystem/Skill/KatanaBaseAttack.h"
 void UAnimNotifyComboEnd::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference)
 {
 	Super::Notify(MeshComp, Animation, EventReference);
@@ -12,7 +13,18 @@ void UAnimNotifyComboEnd::Notify(USkeletalMeshComponent* MeshComp, UAnimSequence
 
 	if (Slay)
 	{
-		Slay->ResetComboAttack();
-
+		USkillSystemComponent* SkillSystem = Slay->GetSkillSystem();
+		if (SkillSystem)
+		{
+			USkill** Skill = SkillSystem->GetSkills().Find(ESkillType::EST_KatanaBaseAttack);
+			if (Skill)
+			{
+				UKatanaBaseAttack* KatanaBaseAttack = Cast<UKatanaBaseAttack>(*Skill);
+				if (KatanaBaseAttack)
+				{
+					KatanaBaseAttack->ResetComboAttack();
+				}
+			}
+		}
 	}
 }

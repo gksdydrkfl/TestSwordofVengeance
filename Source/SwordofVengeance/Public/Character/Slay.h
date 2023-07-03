@@ -57,6 +57,7 @@ private:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon", meta = (AllowPrivateAccess = true))
 	TSubclassOf<AWeapon> KatanaClass;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Weapon", meta = (AllowPrivateAccess = true))
 	AWeapon* CurrentWeapon;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "State", meta = (AllowPrivateAccess = true))
@@ -107,16 +108,21 @@ protected:
 
 public:
 
-	void SetCanAttack(const bool& Value);
-	ECharacterState GetCharacterState() const;
-	EActionState GetActionState() const;
-	void SetActionState(const EActionState& State);
-	void SetCharacterState(const ECharacterState& State);
-	AWeapon* GetCurrentWeapon() const;
-	bool GetBattleMode() const;
-	FVector GetLastInputDirection() const;
+	
+	FORCEINLINE bool GetBattleMode() const { return bBattleMode; };
+	FORCEINLINE bool GetCanAttack() const { return bCanAttack; };
+	FORCEINLINE ECharacterState GetCharacterState() const { return CharacterState; }
+	FORCEINLINE EActionState GetActionState() const { return ActionState; };
+	FORCEINLINE AWeapon* GetCurrentWeapon() const { return CurrentWeapon; };
+	FORCEINLINE FVector GetLastInputDirection() const { return LastInputDirection; };
 	UFUNCTION(BlueprintCallable)
-	UTargetSystemComponent* GetTargetSystem() const;
+	FORCEINLINE UTargetSystemComponent* GetTargetSystem() const { return TargetSystem; };
+	FORCEINLINE USkillSystemComponent* GetSkillSystem() const { return SkillSystem; };
+
+	FORCEINLINE void SetCanAttack(const bool& Value) { bCanAttack = Value; };
+	FORCEINLINE void SetActionState(const EActionState& NewState) { ActionState = NewState; };
+	FORCEINLINE void SetCharacterState(const ECharacterState& NewState) { CharacterState = NewState; };
+	
 
 public:
 
@@ -128,6 +134,7 @@ public:
 	bool CanAttackingState(const FInputActionValue& Value);
 	void SetLinkAnimClassLayers(const TSubclassOf<UAnimInstance>& InClass);
 	TSubclassOf<UAnimInstance> GetLinkAnimClassLayers() const;
+	void EquippedWeapon();
 
 
 	virtual bool IsTargetable() override;

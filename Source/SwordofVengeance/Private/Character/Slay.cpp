@@ -16,6 +16,8 @@
 #include "TargetSystem/TargetSystemComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "SkillSystem/SkillSystemComponent.h"
+//#include "SkillSystem/Skill/Skill.h"
+#include "SkillSystem/Skill/KatanaBaseAttack.h"
 
 ASlay::ASlay() :
 	ActionState(EActionState::EAS_None),
@@ -68,6 +70,11 @@ void ASlay::BeginPlay()
 
 	SlayAnimInstance = Cast<USlayAnimInstance>(GetMesh()->GetAnimInstance());
 
+	if (SkillSystem)
+	{
+		SkillSystem->Init(this);
+	}
+
 	//TODO
 	//억지로 붙힌느낌 똑같은 내용의 코드를 사용함
 	FAttachmentTransformRules AttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
@@ -86,6 +93,8 @@ void ASlay::BeginPlay()
 		Katana->AttachToComponent(GetMesh(), AttachmentTransformRules, FName("PutSwordSocket"));
 
 		CurrentWeapon = Katana;
+
+		Katana->SetCharacter(this);
 	}
 
 	if (UnarmedAnimLayer && SlayAnimInstance)
@@ -144,6 +153,13 @@ void ASlay::Look(const FInputActionValue& Value)
 	}
 }
 
+void ASlay::EquippedWeapon()
+{
+	const FInputActionValue Value;
+
+	EquipWeapon(Value);
+}
+
 void ASlay::EquipWeapon(const FInputActionValue& Value)
 {
 	if (CharacterState == ECharacterState::ECS_Equipped)
@@ -176,7 +192,14 @@ void ASlay::EquipWeapon(const FInputActionValue& Value)
 
 void ASlay::Attack(const FInputActionValue& Value)
 {
-	bool bCanAttackingState = CanAttackingState(Value);
+	if (SkillSystem)
+	{
+		SkillSystem->StartSkill(ESkillType::EST_KatanaBaseAttack);
+
+	}
+
+
+	/*bool bCanAttackingState = CanAttackingState(Value);
 	if (bCanAttackingState == false)
 	{
 		return;
@@ -214,7 +237,7 @@ void ASlay::Attack(const FInputActionValue& Value)
 		SlayAnimInstance->PlayAttackMontage(SectionName);
 	}
 
-	SetCombatMode();
+	SetCombatMode();*/
 }
 
 void ASlay::TargetLookOn(const FInputActionValue& Value)
@@ -273,50 +296,7 @@ void ASlay::Guard(const FInputActionValue& Value)
 	SlayAnimInstance->PlayGuardMontage();
 }
 
-void ASlay::SetCanAttack(const bool& Value)
-{
-	bCanAttack = Value;
-}
 
-ECharacterState ASlay::GetCharacterState() const
-{
-	return CharacterState;
-}
-
-EActionState ASlay::GetActionState() const
-{
-	return ActionState;
-}
-
-void ASlay::SetActionState(const EActionState& State)
-{
-	ActionState = State;
-}
-
-void ASlay::SetCharacterState(const ECharacterState& State)
-{
-	CharacterState = State;
-}
-
-AWeapon* ASlay::GetCurrentWeapon() const
-{
-	return CurrentWeapon;
-}
-
-bool ASlay::GetBattleMode() const
-{
-	return bBattleMode;
-}
-
-FVector ASlay::GetLastInputDirection() const
-{
-	return LastInputDirection;
-}
-
-UTargetSystemComponent* ASlay::GetTargetSystem() const
-{
-	return TargetSystem;
-}
 
 
 void ASlay::AttachWeaponToSocket(const FName& SocketName)
@@ -329,12 +309,7 @@ void ASlay::AttachWeaponToSocket(const FName& SocketName)
 	}
 }
 
-void ASlay::ResetComboAttack()
-{
-	KatanaCombo = 0;
-	bCanAttack = true;
-	ActionState = EActionState::EAS_Unoccupied;
-}
+
 
 void ASlay::UpdateMotionWarping()
 {

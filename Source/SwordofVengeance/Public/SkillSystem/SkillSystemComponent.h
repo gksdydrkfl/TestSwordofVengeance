@@ -4,9 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Skill/Skill.h"
 #include "SkillSystemComponent.generated.h"
 
 class USkill;
+class ASlay;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class SWORDOFVENGEANCE_API USkillSystemComponent : public UActorComponent
@@ -25,9 +27,20 @@ public:
 	// Called every frame
 	//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+
+
 private:
 
-	UPROPERTY(EditAnywhere)
-	TArray<USkill*> Skill;
-		
+	TMap<ESkillType, USkill*> Skills;
+
+public:
+
+	FORCEINLINE TMap<ESkillType, USkill*> GetSkills() const { return Skills; }
+
+	void Init(ASlay* Slay);
+
+	void StartSkill(const ESkillType& SkillType);
+
+	USkill* GetSkill(const ESkillType& SkillType);
+
 };
