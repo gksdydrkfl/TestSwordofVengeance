@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "TargetSystem/TargetSystemInterface.h"
 #include "Enemy.generated.h"
 
 UCLASS()
-class SWORDOFVENGEANCE_API AEnemy : public ACharacter
+class SWORDOFVENGEANCE_API AEnemy : public ACharacter, public ITargetSystemInterface
 {
 	GENERATED_BODY()
 
@@ -25,5 +26,9 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+
+	// ITargetSystemInterface을(를) 통해 상속됨
+	virtual bool IsTargetable() override;
 
 };

@@ -127,7 +127,6 @@ public:
 public:
 
 	void AttachWeaponToSocket(const FName& SocketName);
-	void ResetComboAttack();
 	void UpdateMotionWarping();
 	void SetCombatMode();
 	void SetNonCombatMode();

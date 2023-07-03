@@ -32,3 +32,8 @@ void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 }
 
+bool AEnemy::IsTargetable()
+{
+	return true;
+}
+
