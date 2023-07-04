@@ -185,6 +185,8 @@ void ASlay::EquipWeapon(const FInputActionValue& Value)
 
 	SlayAnimInstance->PlayEquipMontage(EMontageState::EMS_Equip);
 
+	CurrentWeapon->PlaySound(EWeaponSound::EWS_DrawSword);
+
 	CharacterState = ECharacterState::ECS_Equipped;
 
 	ActionState = EActionState::EAS_EquippingWeapon;

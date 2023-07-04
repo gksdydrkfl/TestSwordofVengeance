@@ -3,7 +3,7 @@
 
 #include "Character/Animation/AnimNotifyEquip.h"
 #include "Character/Slay.h"
-
+#include "Item/Equipment/Weapon/Weapon.h"
 void UAnimNotifyEquip::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference)
 {
 	Super::Notify(MeshComp, Animation, EventReference);
@@ -17,5 +17,7 @@ void UAnimNotifyEquip::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBas
 		Slay->SetActionState(EActionState::EAS_Unoccupied);
 
 		Slay->SetCombatMode();
+
+		Slay->GetCurrentWeapon()->PlaySound(EWeaponSound::EWS_DrawSword);
 	}
 }

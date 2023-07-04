@@ -7,6 +7,8 @@
 #include "Character/Slay.h"
 #include "SwordofVengeance/DebugMacro.h"
 #include "Interface/HitInterface.h"
+#include "Kismet/GameplayStatics.h"
+#include "DataAsset/KatanaSoundAsset.h"
 // Sets default values
 AWeapon::AWeapon()
 {
@@ -109,5 +111,30 @@ void AWeapon::OnBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* O
 void AWeapon::EndBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	Debug::Log("OffBoxCollision");
+
+}
+
+void AWeapon::PlaySound(const EWeaponSound& Sound)
+{
+	if (KatanaSoundAsset == nullptr)
+	{
+		return;
+	}
+
+	USoundBase* SoundBase = nullptr;
+
+	switch (Sound)
+	{
+	case EWeaponSound::EWS_DrawSword:
+		SoundBase = KatanaSoundAsset->DrawSwordSound;
+		break;
+	default:
+		break;
+	}
+
+	if (SoundBase)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, KatanaSoundAsset->DrawSwordSound, GetActorLocation());
+	}
 
 }
