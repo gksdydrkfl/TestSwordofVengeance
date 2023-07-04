@@ -5,10 +5,11 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "TargetSystem/TargetSystemInterface.h"
+#include "Interface/HitInterface.h"
 #include "Enemy.generated.h"
 
 UCLASS()
-class SWORDOFVENGEANCE_API AEnemy : public ACharacter, public ITargetSystemInterface
+class SWORDOFVENGEANCE_API AEnemy : public ACharacter, public ITargetSystemInterface, public IHitInterface
 {
 	GENERATED_BODY()
 
@@ -28,7 +29,12 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 
-	// ITargetSystemInterface을(를) 통해 상속됨
-	virtual bool IsTargetable() override;
+private:
 
+	UPROPERTY(EditAnywhere, Category = "Montage", meta = (AllowPrivateAccess = true))
+	UAnimMontage* ReactMontage;
+
+	
+	virtual bool IsTargetable() override;
+	virtual void GetHit(const FVector& HitImpact) override;
 };

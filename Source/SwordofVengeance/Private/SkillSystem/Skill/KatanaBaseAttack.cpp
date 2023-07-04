@@ -16,8 +16,6 @@ UKatanaBaseAttack::UKatanaBaseAttack()
 
 void UKatanaBaseAttack::StartSkill()
 {
-	Super::StartSkill();
-
 	if (Slay == nullptr)
 	{
 		return;
@@ -60,7 +58,7 @@ void UKatanaBaseAttack::StartSkill()
 			break;
 		}
 		KatanaCombo++;
-
+		Slay->SetMotionWarpingTargectDistance(MotionWarpingTargectDistance);
 		SlayAnimInstance->PlayAttackMontage(SectionName);
 	}
 

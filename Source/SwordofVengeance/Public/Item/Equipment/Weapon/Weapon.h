@@ -33,6 +33,9 @@ private:
 
 	ASlay* Slay;
 
+	UPROPERTY(VisibleAnywhere)
+	TArray<AActor*> IgnoreActors;
+
 protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Collision", meta = (AllowPrivateAccess = true))

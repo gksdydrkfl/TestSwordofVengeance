@@ -38,14 +38,14 @@ void USkillSystemComponent::Init(ASlay* Slay)
 
 void USkillSystemComponent::StartSkill(const ESkillType& SkillType)
 {
-	USkill* NewSkill = GetSkill(SkillType);
+	NewSkill = nullptr;
+	NewSkill = GetSkill(SkillType);
 
 	if (NewSkill)
 	{
 		switch (SkillType)
 		{
 		case ESkillType::EST_KatanaBaseAttack:
-			Debug::Log("Skill");
 			UKatanaBaseAttack* KatanaBaseAttack = Cast<UKatanaBaseAttack>(NewSkill);
 			if (KatanaBaseAttack)
 			{

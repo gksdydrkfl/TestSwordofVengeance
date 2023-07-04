@@ -33,4 +33,5 @@ public:
 	bool CanAttackingState();
 
 	void ResetComboAttack();
+
 };

@@ -197,47 +197,6 @@ void ASlay::Attack(const FInputActionValue& Value)
 		SkillSystem->StartSkill(ESkillType::EST_KatanaBaseAttack);
 
 	}
-
-
-	/*bool bCanAttackingState = CanAttackingState(Value);
-	if (bCanAttackingState == false)
-	{
-		return;
-	}
-
-	MotionWarpingComp->RemoveWarpTarget(FName("TargetWarp"));
-
-	bCanAttack = false;
-
-	if (KatanaCombo >= 3)
-	{
-		KatanaCombo = 0;
-	}
-
-	if (SlayAnimInstance)
-	{
-		FName SectionName = FName();
-		switch (KatanaCombo)
-		{
-		case 0:
-			SectionName = FName("Combo1");
-			MotionWarpingTargectDistance = 35.f;
-			break;
-		case 1:
-			SectionName = FName("Combo2");
-			MotionWarpingTargectDistance = 35.f;
-			break;
-		case 2:
-			SectionName = FName("Combo3");
-			MotionWarpingTargectDistance = 100.f;
-			break;
-		}
-		KatanaCombo++;
-
-		SlayAnimInstance->PlayAttackMontage(SectionName);
-	}
-
-	SetCombatMode();*/
 }
 
 void ASlay::TargetLookOn(const FInputActionValue& Value)
@@ -313,6 +272,7 @@ void ASlay::AttachWeaponToSocket(const FName& SocketName)
 
 void ASlay::UpdateMotionWarping()
 {
+
 	if (TargetSystem == nullptr)
 	{
 		return;

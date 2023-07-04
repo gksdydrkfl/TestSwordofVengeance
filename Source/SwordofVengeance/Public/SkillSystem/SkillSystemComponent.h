@@ -31,8 +31,11 @@ public:
 
 private:
 
+	UPROPERTY()
 	TMap<ESkillType, USkill*> Skills;
 
+	UPROPERTY(VisibleAnywhere)
+	USkill* NewSkill;
 public:
 
 	FORCEINLINE TMap<ESkillType, USkill*> GetSkills() const { return Skills; }

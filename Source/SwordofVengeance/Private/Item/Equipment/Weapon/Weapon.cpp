@@ -6,6 +6,7 @@
 #include "Kismet/KismetSystemLibrary.h"
 #include "Character/Slay.h"
 #include "SwordofVengeance/DebugMacro.h"
+#include "Interface/HitInterface.h"
 // Sets default values
 AWeapon::AWeapon()
 {
@@ -54,6 +55,8 @@ void AWeapon::DisabledBoxCollision(ECollisionEnabled::Type NewType)
 	if (BoxCollision)
 	{
 		BoxCollision->SetCollisionEnabled(NewType);
+
+		IgnoreActors.Empty();
 	}
 }
 
@@ -64,6 +67,11 @@ void AWeapon::OnBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* O
 
 	TArray<AActor*> ActorsToIgnore;
 	ActorsToIgnore.Add(this);
+
+	for (AActor* Actor : IgnoreActors)
+	{
+		IgnoreActors.AddUnique(Actor);
+	}
 
 	FHitResult HitResult;
 
@@ -83,29 +91,19 @@ void AWeapon::OnBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* O
 		FColor::Green,
 		5.f);
 
-	if (OtherActor == nullptr)
+	if (HitResult.GetActor())
 	{
-		return;
+		if (HitResult.GetActor()->GetClass()->ImplementsInterface(UHitInterface::StaticClass()))
+		{
+			IHitInterface* Inteface = Cast<IHitInterface>(HitResult.GetActor());
+			if (Inteface)
+			{
+				Inteface->GetHit(HitResult.ImpactPoint);
+
+				IgnoreActors.AddUnique(HitResult.GetActor());
+			}
+		}
 	}
-	const FVector DotVector1(OtherActor->GetActorForwardVector());
-	const FVector ImpactLocation(HitResult.ImpactPoint.X, HitResult.ImpactPoint.Y, OtherActor->GetActorLocation().Z);
-	const FVector DotVector2 = (ImpactLocation - OtherActor->GetActorLocation()).GetSafeNormal();
-
-	const double DotVector = FVector::DotProduct(DotVector1, DotVector2);
-	double Angle = FMath::Acos(DotVector);
-	Angle = FMath::RadiansToDegrees(Angle);
-
-	UKismetSystemLibrary::DrawDebugArrow(this, OtherActor->GetActorLocation(), OtherActor->GetActorLocation() + DotVector1 * 60.f, 5.f, FColor::Red, 5.f);
-	UKismetSystemLibrary::DrawDebugArrow(this, OtherActor->GetActorLocation(), OtherActor->GetActorLocation() + DotVector2 * 60.f, 5.f, FColor::Green, 5.f);
-
-	const FVector CrossVector = FVector::CrossProduct(DotVector1, DotVector2);
-	Debug::Log(CrossVector);
-	if (CrossVector.Z < 0)
-	{
-		Angle *= -1.f;
-	}
-	Debug::Log(Angle);
-
 }
 
 void AWeapon::EndBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)

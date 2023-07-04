@@ -122,6 +122,7 @@ public:
 	FORCEINLINE void SetCanAttack(const bool& Value) { bCanAttack = Value; };
 	FORCEINLINE void SetActionState(const EActionState& NewState) { ActionState = NewState; };
 	FORCEINLINE void SetCharacterState(const ECharacterState& NewState) { CharacterState = NewState; };
+	FORCEINLINE void SetMotionWarpingTargectDistance(const float& NewValue) { MotionWarpingTargectDistance = NewValue; };
 	
 
 public:
