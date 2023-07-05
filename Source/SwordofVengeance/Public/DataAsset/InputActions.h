@@ -38,4 +38,7 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	UInputAction* GuardAction;
+
+	UPROPERTY(EditAnywhere)
+	UInputAction* RunAction;
 };

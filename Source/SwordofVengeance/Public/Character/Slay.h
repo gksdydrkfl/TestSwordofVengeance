@@ -96,6 +96,8 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Skill System", meta = (AllowPrivateAccess = true))
 	USkillSystemComponent* SkillSystem;
+
+	bool bRun;
 protected:
 
 	void Move(const FInputActionValue& Vaslue);
@@ -105,6 +107,7 @@ protected:
 	void TargetLookOn(const FInputActionValue& Value);
 	void Evasion(const FInputActionValue& Value);
 	void Guard(const FInputActionValue& Value);
+	void Run(const FInputActionValue& Value);
 
 public:
 

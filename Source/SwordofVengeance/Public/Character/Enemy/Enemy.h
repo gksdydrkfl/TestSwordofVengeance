@@ -34,7 +34,10 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Montage", meta = (AllowPrivateAccess = true))
 	UAnimMontage* ReactMontage;
 
+	UPROPERTY(EditAnywhere, Category = "Particle", meta = (AllowPrivateAccess = true))
+	UParticleSystem* HitParticles;
 	
+public:
 	virtual bool IsTargetable() override;
 	virtual void GetHit(const FVector& HitImpact) override;
 };

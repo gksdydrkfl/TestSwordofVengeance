@@ -3,7 +3,7 @@
 
 #include "Character/Animation/AnimNotifyEquip.h"
 #include "Character/Slay.h"
-#include "Item/Equipment/Weapon/Weapon.h"
+#include "Item/Equipment/Weapon/Katana.h"
 void UAnimNotifyEquip::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference)
 {
 	Super::Notify(MeshComp, Animation, EventReference);
@@ -18,6 +18,15 @@ void UAnimNotifyEquip::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBas
 
 		Slay->SetCombatMode();
 
-		Slay->GetCurrentWeapon()->PlaySound(EWeaponSound::EWS_DrawSword);
+		FName ItemName = Slay->GetCurrentWeapon()->GetItemName();
+
+		if (ItemName == FName("Katana"))
+		{
+			AKatana* Katana = Cast<AKatana>(Slay->GetCurrentWeapon());
+			if (Katana)
+			{
+				Katana->PlaySound();
+			}
+		}
 	}
 }

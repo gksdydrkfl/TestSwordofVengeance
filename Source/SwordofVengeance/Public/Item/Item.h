@@ -28,7 +28,12 @@ private:
 	UPROPERTY(VisibleAnywhere, meta = (AllowPrivateAccess = true))
 	UStaticMeshComponent* ItemMesh;
 
+protected:
+
+	FName ItemName;
+
 public:
 
 	FORCEINLINE UStaticMeshComponent* GetItemMesh() { return ItemMesh; }
+	FORCEINLINE FName GetItemName() const { return ItemName; }
 };

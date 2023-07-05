@@ -2,9 +2,10 @@
 
 
 #include "Character/Enemy/Enemy.h"
-#include "Kismet/KismetSystemLibrary.h"
 #include "Components/CapsuleComponent.h"
 #include "SwordofVengeance/DebugMacro.h"
+#include "Kismet/GameplayStatics.h"
+
 
 AEnemy::AEnemy()
 {
@@ -18,21 +19,18 @@ AEnemy::AEnemy()
 	GetCapsuleComponent()->SetCollisionResponseToChannel(ECollisionChannel::ECC_Camera, ECollisionResponse::ECR_Ignore);
 }
 
-// Called when the game starts or when spawned
 void AEnemy::BeginPlay()
 {
 	Super::BeginPlay();
 	
 }
 
-// Called every frame
 void AEnemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
 }
 
-// Called to bind functionality to input
 void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -54,9 +52,6 @@ void AEnemy::GetHit(const FVector& HitImpact)
 	double Angle = FMath::Acos(DotVector);
 	Angle = FMath::RadiansToDegrees(Angle);
 
-	UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + DotVector1 * 60.f, 5.f, FColor::Red, 5.f);
-	UKismetSystemLibrary::DrawDebugArrow(this, GetActorLocation(), GetActorLocation() + DotVector2 * 60.f, 5.f, FColor::Green, 5.f);
-
 	const FVector CrossVector = FVector::CrossProduct(DotVector1, DotVector2);
 
 	if (CrossVector.Z < 0)
@@ -69,28 +64,27 @@ void AEnemy::GetHit(const FVector& HitImpact)
 	if (Angle < 45.f && Angle >= -45.f)
 	{
 		SectionName = FName("Forward");
-		Debug::Log("Forward");
 	}
 	else if (Angle > 45.f && Angle <= 135.f)
 	{
 		SectionName = FName("Right");
-		Debug::Log("Right");
 	}
 	else if (Angle < -45.f && Angle >= -135.f)
 	{
 		SectionName = FName("Left");
-		Debug::Log("Left");
 	}
 	else
 	{
 		SectionName = FName("Backward");
-		Debug::Log("Backward");
 	}
 
 	GetMesh()->GetAnimInstance()->Montage_Play(ReactMontage);
 
 	GetMesh()->GetAnimInstance()->Montage_JumpToSection(SectionName, ReactMontage);
 
-	DRAW_SPHERE(HitImpact);
+	if (HitParticles)
+	{
+		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), HitParticles, HitImpact);
+	}
 }
 

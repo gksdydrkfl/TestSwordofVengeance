@@ -228,8 +228,6 @@ bool UTargetSystemComponent::LineTraceForTarget(TArray<AActor*>& HitActors, cons
 
 	if (HitActor == Actor)
 	{
-		DrawDebugLine(GetWorld(), Start, End, FColor::Red, true);
-
 		return true;
 	}
 

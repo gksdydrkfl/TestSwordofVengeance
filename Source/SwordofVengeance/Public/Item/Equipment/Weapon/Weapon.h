@@ -7,11 +7,7 @@
 #include "Item/Item.h"
 #include "Weapon.generated.h"
 
-UENUM(BlueprintType)
-enum class EWeaponSound : uint8
-{
-	EWS_DrawSword		UMETA(DisplayName = "DrawSword")
-};
+
 
 
 class UBoxComponent;
@@ -32,6 +28,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+
+
 
 	UPROPERTY(EditDefaultsOnly, Category = "Animation Layer", meta = (AllowPrivateAccess = true))
 	TSubclassOf<UAnimInstance> NonCombatAnimClassLayers;
@@ -54,8 +52,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	USceneComponent* BoxCollisionEnd;
 
-	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = true))
-	UKatanaSoundAsset* KatanaSoundAsset;
+
 public:
 
 	FORCEINLINE TSubclassOf<UAnimInstance> GetNonCombatAnimClassLayers() { return NonCombatAnimClassLayers; }
@@ -73,5 +70,5 @@ public:
 	UFUNCTION()
 	void EndBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
-	void PlaySound(const EWeaponSound& Sound);
+	//void PlaySound(const EWeaponSound& Sound);
 };

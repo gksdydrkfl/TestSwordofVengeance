@@ -86,7 +86,7 @@ void AWeapon::OnBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* O
 		ETraceTypeQuery::TraceTypeQuery1,
 		false,
 		ActorsToIgnore,
-		EDrawDebugTrace::ForDuration,
+		EDrawDebugTrace::None,
 		HitResult,
 		true,
 		FColor::Red,
@@ -110,31 +110,30 @@ void AWeapon::OnBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* O
 
 void AWeapon::EndBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-	Debug::Log("OffBoxCollision");
 
 }
 
-void AWeapon::PlaySound(const EWeaponSound& Sound)
-{
-	if (KatanaSoundAsset == nullptr)
-	{
-		return;
-	}
-
-	USoundBase* SoundBase = nullptr;
-
-	switch (Sound)
-	{
-	case EWeaponSound::EWS_DrawSword:
-		SoundBase = KatanaSoundAsset->DrawSwordSound;
-		break;
-	default:
-		break;
-	}
-
-	if (SoundBase)
-	{
-		UGameplayStatics::PlaySoundAtLocation(this, KatanaSoundAsset->DrawSwordSound, GetActorLocation());
-	}
-
-}
+//void AWeapon::PlaySound(const EWeaponSound& Sound)
+//{
+//	if (KatanaSoundAsset == nullptr)
+//	{
+//		return;
+//	}
+//
+//	USoundBase* SoundBase = nullptr;
+//
+//	switch (Sound)
+//	{
+//	case EWeaponSound::EWS_DrawSword:
+//		SoundBase = KatanaSoundAsset->DrawSwordSound;
+//		break;
+//	default:
+//		break;
+//	}
+//
+//	if (SoundBase)
+//	{
+//		UGameplayStatics::PlaySoundAtLocation(this, KatanaSoundAsset->DrawSwordSound, GetActorLocation());
+//	}
+//
+//}

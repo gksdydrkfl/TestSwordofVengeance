@@ -6,9 +6,14 @@
 #include "Item/Equipment/Weapon/Weapon.h"
 #include "Katana.generated.h"
 
-/**
- * 
- */
+UENUM(BlueprintType)
+enum class EWeaponSound : uint8
+{
+	EWS_DrawSword		UMETA(DisplayName = "DrawSword"),
+	EWS_SwordSwing1		UMETA(DisplayName = "SwordSwing1"),
+	EWS_SwordSwing2		UMETA(DisplayName = "SwordSwing2"),
+};
+
 UCLASS()
 class SWORDOFVENGEANCE_API AKatana : public AWeapon
 {
@@ -22,10 +27,15 @@ public:
 
 private:
 
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = true))
+	UKatanaSoundAsset* KatanaSoundAsset;
 
-
-
+	EWeaponSound WeaponSound;
 
 public:
 
+	FORCEINLINE void SetWeaponSound(EWeaponSound Sound) { WeaponSound = Sound; };
+
+public:
+	void PlaySound();
 };

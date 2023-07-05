@@ -19,6 +19,7 @@ public:
 
 private:
 
+	UPROPERTY()
 	UMotionWarpingComponent* MotionWarpingComp;
 
 	int32 KatanaCombo = 0;

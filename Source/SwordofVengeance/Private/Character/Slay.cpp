@@ -16,7 +16,7 @@
 #include "TargetSystem/TargetSystemComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "SkillSystem/SkillSystemComponent.h"
-//#include "SkillSystem/Skill/Skill.h"
+#include "Item/Equipment/Weapon/Katana.h"
 #include "SkillSystem/Skill/KatanaBaseAttack.h"
 
 ASlay::ASlay() :
@@ -27,7 +27,8 @@ ASlay::ASlay() :
 	CombatStateTime(15.f),
 	bBattleMode(false),
 	LastInputDirection(FVector::ZeroVector),
-	RollingDirection(FVector::ZeroVector)
+	RollingDirection(FVector::ZeroVector),
+	bRun(false)
 {
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	CameraBoom->SetupAttachment(RootComponent);
@@ -123,6 +124,7 @@ void ASlay::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		EnhancedInputComponent->BindAction(InputActions->TargetLookOnAction, ETriggerEvent::Triggered, this, &ASlay::TargetLookOn);
 		EnhancedInputComponent->BindAction(InputActions->RollingAction, ETriggerEvent::Triggered, this, &ASlay::Evasion);
 		EnhancedInputComponent->BindAction(InputActions->GuardAction, ETriggerEvent::Triggered, this, &ASlay::Guard);
+		EnhancedInputComponent->BindAction(InputActions->RunAction, ETriggerEvent::Triggered, this, &ASlay::Run);
 	}
 }
 
@@ -185,7 +187,11 @@ void ASlay::EquipWeapon(const FInputActionValue& Value)
 
 	SlayAnimInstance->PlayEquipMontage(EMontageState::EMS_Equip);
 
-	CurrentWeapon->PlaySound(EWeaponSound::EWS_DrawSword);
+	AKatana* Katana = Cast<AKatana>(CurrentWeapon);
+	if (Katana)
+	{
+		Katana->SetWeaponSound(EWeaponSound::EWS_DrawSword);
+	}
 
 	CharacterState = ECharacterState::ECS_Equipped;
 
@@ -255,6 +261,13 @@ void ASlay::Evasion(const FInputActionValue& Value)
 void ASlay::Guard(const FInputActionValue& Value)
 {
 	SlayAnimInstance->PlayGuardMontage();
+}
+
+void ASlay::Run(const FInputActionValue& Value)
+{
+	bRun = !bRun;
+
+	bRun ? GetCharacterMovement()->MaxWalkSpeed = 450.f : GetCharacterMovement()->MaxWalkSpeed = 180.f;
 }
 
 
@@ -344,8 +357,6 @@ void ASlay::UpdateMotionWarping()
 
 void ASlay::SetCombatMode()
 {
-	//ActionState = EActionState::EAS_CombatMode;
-
 	bBattleMode = true;
 
 	GetWorldTimerManager().SetTimer(
@@ -358,8 +369,6 @@ void ASlay::SetCombatMode()
 
 void ASlay::SetNonCombatMode()
 {
-	//ActionState = EActionState::EAS_NonCombatMode;
-
 	CharacterState = ECharacterState::ECS_UnEquipped;
 
 	bBattleMode = false;

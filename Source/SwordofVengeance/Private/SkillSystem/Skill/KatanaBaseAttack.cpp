@@ -5,7 +5,7 @@
 #include "Character/Slay.h"
 #include "MotionWarpingComponent.h"
 #include "Character/Animation/SlayAnimInstance.h"
-
+#include "Item/Equipment/Weapon/Katana.h"
 UKatanaBaseAttack::UKatanaBaseAttack()
 {
 	SkillType = ESkillType::EST_KatanaBaseAttack;
@@ -38,6 +38,7 @@ void UKatanaBaseAttack::StartSkill()
 
 
 	USlayAnimInstance* SlayAnimInstance = Cast<USlayAnimInstance>(Slay->GetMesh()->GetAnimInstance());
+	EWeaponSound WeaponSound;
 
 	if (SlayAnimInstance)
 	{
@@ -47,19 +48,31 @@ void UKatanaBaseAttack::StartSkill()
 		case 0:
 			SectionName = FName("Combo1");
 			MotionWarpingTargectDistance = 35.f;
+			WeaponSound = EWeaponSound::EWS_SwordSwing1;
 			break;
 		case 1:
 			SectionName = FName("Combo2");
 			MotionWarpingTargectDistance = 35.f;
+			WeaponSound = EWeaponSound::EWS_SwordSwing1;
 			break;
 		case 2:
 			SectionName = FName("Combo3");
 			MotionWarpingTargectDistance = 100.f;
+			WeaponSound = EWeaponSound::EWS_SwordSwing2;
 			break;
 		}
 		KatanaCombo++;
+
+
 		Slay->SetMotionWarpingTargectDistance(MotionWarpingTargectDistance);
+
 		SlayAnimInstance->PlayAttackMontage(SectionName);
+	}
+
+	AKatana* Katana = Cast<AKatana>(Slay->GetCurrentWeapon());
+	if (Katana)
+	{
+		Katana->SetWeaponSound(WeaponSound);
 	}
 
 	Slay->SetCombatMode();

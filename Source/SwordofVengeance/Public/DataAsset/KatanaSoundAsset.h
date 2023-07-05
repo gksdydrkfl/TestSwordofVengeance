@@ -18,4 +18,7 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	USoundBase* DrawSwordSound;
+
+	UPROPERTY(EditAnywhere)
+	TArray<USoundBase*> SwordSwingSound;
 };
