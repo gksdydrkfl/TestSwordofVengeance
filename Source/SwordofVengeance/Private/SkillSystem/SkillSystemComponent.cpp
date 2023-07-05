@@ -27,9 +27,11 @@ void USkillSystemComponent::BeginPlay()
 
 void USkillSystemComponent::Init(ASlay* Slay)
 {
-	UKatanaBaseAttack* KatanaBaseAttack = NewObject<UKatanaBaseAttack>(UKatanaBaseAttack::StaticClass());
+	UKatanaBaseAttack* KatanaBaseAttack = NewObject<UKatanaBaseAttack>(this, UKatanaBaseAttack::StaticClass());
 	if (KatanaBaseAttack)
 	{
+		Debug::Log("Skill add");
+
 		KatanaBaseAttack->Init(Slay);
 
 		Skills.Add(ESkillType::EST_KatanaBaseAttack, KatanaBaseAttack);

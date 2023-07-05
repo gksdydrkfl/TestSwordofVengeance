@@ -30,7 +30,10 @@ protected:
 
 	ESkillType SkillType;
 
+
 public:
+
+	FORCEINLINE ESkillType GetSkillType() const { return SkillType; }
 
 	void Init(ASlay* Character);
 

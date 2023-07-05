@@ -31,7 +31,7 @@ public:
 
 private:
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere)
 	TMap<ESkillType, USkill*> Skills;
 
 	UPROPERTY(VisibleAnywhere)

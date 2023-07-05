@@ -10,7 +10,10 @@ USkill::USkill()
 
 void USkill::Init(ASlay* Character)
 {
-	Slay = Character;
+	if (Character)
+	{
+		Slay = Character;
+	}
 }
 
 void USkill::StartSkill()

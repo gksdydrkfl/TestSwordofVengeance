@@ -28,7 +28,8 @@ ASlay::ASlay() :
 	bBattleMode(false),
 	LastInputDirection(FVector::ZeroVector),
 	RollingDirection(FVector::ZeroVector),
-	bRun(false)
+	bRun(false),
+	PrevSpeed(0.f)
 {
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	CameraBoom->SetupAttachment(RootComponent);
@@ -55,6 +56,8 @@ ASlay::ASlay() :
 	TargetSystem = CreateDefaultSubobject<UTargetSystemComponent>(TEXT("TargetSystem"));
 
 	SkillSystem = CreateDefaultSubobject<USkillSystemComponent>(TEXT("SkillSystem"));
+
+	PrevSpeed = GetCharacterMovement()->MaxWalkSpeed;
 }
 
 void ASlay::BeginPlay()
@@ -219,6 +222,7 @@ void ASlay::TargetLookOn(const FInputActionValue& Value)
 
 				SetLinkAnimClassLayers(CombatAnimClassLayers);
 			}
+			GetCharacterMovement()->MaxWalkSpeed = 210.f;
 		}
 		else
 		{
@@ -227,6 +231,8 @@ void ASlay::TargetLookOn(const FInputActionValue& Value)
 			TSubclassOf<UAnimInstance> NonCombatAnimClassLayers = CurrentWeapon->GetNonCombatAnimClassLayers();
 
 			SetLinkAnimClassLayers(NonCombatAnimClassLayers);
+
+			GetCharacterMovement()->MaxWalkSpeed = PrevSpeed;
 		}
 
 	}
@@ -268,6 +274,8 @@ void ASlay::Run(const FInputActionValue& Value)
 	bRun = !bRun;
 
 	bRun ? GetCharacterMovement()->MaxWalkSpeed = 450.f : GetCharacterMovement()->MaxWalkSpeed = 180.f;
+
+	PrevSpeed = GetCharacterMovement()->MaxWalkSpeed;
 }
 
 

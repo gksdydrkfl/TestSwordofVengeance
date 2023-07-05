@@ -173,30 +173,64 @@ void USlayAnimInstance::FindDirection()
 
 	const float Angle = YawRotation.Yaw;
 
-	bool Value = UKismetMathLibrary::InRange_FloatFloat(Angle, -70.f, 70.f);
-	if (Value)
+	//bool Value = UKismetMathLibrary::InRange_FloatFloat(Angle, -70.f, 70.f);
+	//if (Value)
+	//{
+	//	DirectionState = EDirectionState::EDS_Forward;
+	//}
+	//else
+	//{
+	//	Value = UKismetMathLibrary::InRange_FloatFloat(Angle, 70.f, 110.f);
+	//	if (Value)
+	//	{
+	//		DirectionState = EDirectionState::EDS_Right;
+	//	}
+	//	else
+	//	{
+	//		Value = UKismetMathLibrary::InRange_FloatFloat(Angle, -110, -70.f);
+	//		if (Value)
+	//		{
+	//			DirectionState = EDirectionState::EDS_Left;
+	//		}
+	//		else
+	//		{
+	//			DirectionState = EDirectionState::EDS_Backward;
+	//		}
+	//	}
+	//}
+
+
+	if (Angle < 44.f && Angle >= -44.f)
 	{
 		DirectionState = EDirectionState::EDS_Forward;
 	}
+	else if (Angle > 44.1f && Angle <= 45.9f)
+	{
+		DirectionState = EDirectionState::EDS_Forward_Right;
+	}
+	else if (Angle > 46.f && Angle <= 134.f)
+	{
+		DirectionState = EDirectionState::EDS_Right;
+	}
+	else if (Angle > 134.1f && Angle <= 135.9f)
+	{
+		DirectionState = EDirectionState::EDS_Backward_Right;
+	}
+	else if (Angle < -44.1f && Angle >= -45.9f)
+	{
+		DirectionState = EDirectionState::EDS_Forward_Left;
+	}
+	else if (Angle < -134.1 && Angle >= -135.9f)
+	{
+		DirectionState = EDirectionState::EDS_Backward_Left;
+	}
+	else if (Angle < -44.f && Angle >= -134.f)
+	{
+		DirectionState = EDirectionState::EDS_Left;
+	}
 	else
 	{
-		Value = UKismetMathLibrary::InRange_FloatFloat(Angle, 70.f, 110.f);
-		if (Value)
-		{
-			DirectionState = EDirectionState::EDS_Right;
-		}
-		else
-		{
-			Value = UKismetMathLibrary::InRange_FloatFloat(Angle, -110, -70.f);
-			if (Value)
-			{
-				DirectionState = EDirectionState::EDS_Left;
-			}
-			else
-			{
-				DirectionState = EDirectionState::EDS_Backward;
-			}
-		}
+		DirectionState = EDirectionState::EDS_Backward;
 	}
 }
 

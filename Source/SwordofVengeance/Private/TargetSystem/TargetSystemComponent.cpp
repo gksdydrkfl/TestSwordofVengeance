@@ -98,7 +98,7 @@ bool UTargetSystemComponent::TargetLockOn()
 			{
 				LockOnWidgetComponent->SetWidgetClass(LockedOnWidgetClass);
 				LockOnWidgetComponent->SetWidgetSpace(EWidgetSpace::Screen);
-				LockOnWidgetComponent->SetupAttachment(MeshComponent, FName("spine_02"));
+				LockOnWidgetComponent->SetupAttachment(MeshComponent, FName("Spine2"));
 				LockOnWidgetComponent->SetDrawSize(FVector2D(32.f, 32.f));
 				LockOnWidgetComponent->RegisterComponent();
 			}

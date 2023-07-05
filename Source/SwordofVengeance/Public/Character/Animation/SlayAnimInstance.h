@@ -16,10 +16,14 @@ enum class EMontageState : uint8
 UENUM(BlueprintType)
 enum class EDirectionState : uint8
 {
-	EDS_Forward		 UMETA(DisplayName = "Forward"),
-	EDS_Backward	 UMETA(DisplayName = "Backward"),
-	EDS_Left		 UMETA(DisplayName = "Left"),
-	EDS_Right		 UMETA(DisplayName = "Right")
+	EDS_Forward			UMETA(DisplayName = "Forward"),
+	EDS_Backward		UMETA(DisplayName = "Backward"),
+	EDS_Left			UMETA(DisplayName = "Left"),
+	EDS_Right			UMETA(DisplayName = "Right"),
+	EDS_Forward_Left	UMETA(DisplayName = "Forward_Left"),
+	EDS_Forward_Right	UMETA(DisplayName = "Forward_Right"),
+	EDS_Backward_Left	UMETA(DisplayName = "Backward_Left"),
+	EDS_Backward_Right	UMETA(DisplayName = "Backward_Right")
 };
 
 class ASlay;

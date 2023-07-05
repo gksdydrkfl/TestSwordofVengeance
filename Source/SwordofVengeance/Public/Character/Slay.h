@@ -97,6 +97,8 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Skill System", meta = (AllowPrivateAccess = true))
 	USkillSystemComponent* SkillSystem;
 
+	float PrevSpeed;
+
 	bool bRun;
 protected:
 

@@ -17,10 +17,10 @@ void UAnimNotifyRollingEnd::Notify(USkeletalMeshComponent* MeshComp, UAnimSequen
 		USkillSystemComponent* SkillSystem = Slay->GetSkillSystem();
 		if (SkillSystem)
 		{
-			USkill** Skill = SkillSystem->GetSkills().Find(ESkillType::EST_KatanaBaseAttack);
+			USkill* Skill = SkillSystem->GetSkill(ESkillType::EST_KatanaBaseAttack);
 			if (Skill)
 			{
-				UKatanaBaseAttack* KatanaBaseAttack = Cast<UKatanaBaseAttack>(*Skill);
+				UKatanaBaseAttack* KatanaBaseAttack = Cast<UKatanaBaseAttack>(Skill);
 				if (KatanaBaseAttack)
 				{
 					KatanaBaseAttack->ResetComboAttack();

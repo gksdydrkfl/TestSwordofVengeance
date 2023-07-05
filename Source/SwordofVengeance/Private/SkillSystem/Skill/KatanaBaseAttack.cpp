@@ -6,12 +6,12 @@
 #include "MotionWarpingComponent.h"
 #include "Character/Animation/SlayAnimInstance.h"
 #include "Item/Equipment/Weapon/Katana.h"
+#include "SwordofVengeance/DebugMacro.h"
 UKatanaBaseAttack::UKatanaBaseAttack()
 {
 	SkillType = ESkillType::EST_KatanaBaseAttack;
 
 	MotionWarpingComp = CreateDefaultSubobject<UMotionWarpingComponent>(TEXT("MotionWarpingComp"));
-
 }
 
 void UKatanaBaseAttack::StartSkill()
@@ -38,7 +38,7 @@ void UKatanaBaseAttack::StartSkill()
 
 
 	USlayAnimInstance* SlayAnimInstance = Cast<USlayAnimInstance>(Slay->GetMesh()->GetAnimInstance());
-	EWeaponSound WeaponSound;
+	EWeaponSound WeaponSound = EWeaponSound();
 
 	if (SlayAnimInstance)
 	{
@@ -118,4 +118,6 @@ void UKatanaBaseAttack::ResetComboAttack()
 	KatanaCombo = 0;
 	Slay->SetCanAttack(true);
 	Slay->SetActionState(EActionState::EAS_Unoccupied);
+
+	Debug::Log("ResetComboAttack");
 }
