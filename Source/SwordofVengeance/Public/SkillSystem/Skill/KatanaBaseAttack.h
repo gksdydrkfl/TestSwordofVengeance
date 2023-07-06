@@ -26,7 +26,6 @@ private:
 
 	float MotionWarpingTargectDistance = 0.f;
 
-
 public:
 
 	virtual void StartSkill() override;

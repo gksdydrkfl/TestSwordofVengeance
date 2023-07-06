@@ -128,6 +128,7 @@ void ASlay::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		EnhancedInputComponent->BindAction(InputActions->RollingAction, ETriggerEvent::Triggered, this, &ASlay::Evasion);
 		EnhancedInputComponent->BindAction(InputActions->GuardAction, ETriggerEvent::Triggered, this, &ASlay::Guard);
 		EnhancedInputComponent->BindAction(InputActions->RunAction, ETriggerEvent::Triggered, this, &ASlay::Run);
+		EnhancedInputComponent->BindAction(InputActions->Skill_01, ETriggerEvent::Triggered, this, &ASlay::Skill_01);
 	}
 }
 
@@ -276,6 +277,15 @@ void ASlay::Run(const FInputActionValue& Value)
 	bRun ? GetCharacterMovement()->MaxWalkSpeed = 450.f : GetCharacterMovement()->MaxWalkSpeed = 180.f;
 
 	PrevSpeed = GetCharacterMovement()->MaxWalkSpeed;
+}
+
+void ASlay::Skill_01(const FInputActionValue& Value)
+{
+	if (SkillSystem)
+	{
+		SkillSystem->StartSkill(ESkillType::EST_KatanaBattojutsu);
+
+	}
 }
 
 

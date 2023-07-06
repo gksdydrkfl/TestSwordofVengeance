@@ -110,6 +110,7 @@ protected:
 	void Evasion(const FInputActionValue& Value);
 	void Guard(const FInputActionValue& Value);
 	void Run(const FInputActionValue& Value);
+	void Skill_01(const FInputActionValue& Value);
 
 public:
 

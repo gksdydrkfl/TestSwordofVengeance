@@ -68,7 +68,7 @@ private:
 public:
 
 	void PlayEquipMontage(EMontageState MontageState);
-	void PlayAttackMontage(const FName& SectionName);
+	void PlayAttackMontage(const FName& SectionName, float PlayRate = 1.f);
 	void PlayRollingMontage(const bool& bRockOn);
 	void PlayGuardMontage();
 

@@ -41,4 +41,7 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	UInputAction* RunAction;
+
+	UPROPERTY(EditAnywhere)
+	UInputAction* Skill_01;
 };

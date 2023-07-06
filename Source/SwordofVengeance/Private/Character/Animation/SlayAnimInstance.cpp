@@ -71,13 +71,13 @@ void USlayAnimInstance::PlayEquipMontage(EMontageState MontageState)
 	}
 }
 
-void USlayAnimInstance::PlayAttackMontage(const FName& SectionName)
+void USlayAnimInstance::PlayAttackMontage(const FName& SectionName, float PlayRate)
 {
 	if (CharacterActionMontage)
 	{
 		if (CharacterActionMontage->KatanaAttackMontage)
 		{
-			Montage_Play(CharacterActionMontage->KatanaAttackMontage);
+			Montage_Play(CharacterActionMontage->KatanaAttackMontage, PlayRate);
 			Montage_JumpToSection(SectionName, CharacterActionMontage->KatanaAttackMontage);
 		}
 	}

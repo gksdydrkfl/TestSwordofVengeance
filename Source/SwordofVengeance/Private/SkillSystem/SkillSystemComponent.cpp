@@ -4,6 +4,7 @@
 #include "SkillSystem/SkillSystemComponent.h"
 #include "SkillSystem/Skill/Skill.h"
 #include "SkillSystem/Skill/KatanaBaseAttack.h"
+#include "SkillSystem/Skill/KatanaBattojutsu.h"
 #include "SwordofVengeance/DebugMacro.h"
 // Sets default values for this component's properties
 USkillSystemComponent::USkillSystemComponent()
@@ -30,11 +31,17 @@ void USkillSystemComponent::Init(ASlay* Slay)
 	UKatanaBaseAttack* KatanaBaseAttack = NewObject<UKatanaBaseAttack>(this, UKatanaBaseAttack::StaticClass());
 	if (KatanaBaseAttack)
 	{
-		Debug::Log("Skill add");
-
 		KatanaBaseAttack->Init(Slay);
 
 		Skills.Add(ESkillType::EST_KatanaBaseAttack, KatanaBaseAttack);
+	}
+
+	UKatanaBattojutsu* KatanaBattojutsu = NewObject<UKatanaBattojutsu>(this, UKatanaBattojutsu::StaticClass());
+	if (KatanaBattojutsu)
+	{
+		KatanaBattojutsu->Init(Slay);
+
+		Skills.Add(ESkillType::EST_KatanaBattojutsu, KatanaBattojutsu);
 	}
 }
 
@@ -47,13 +54,34 @@ void USkillSystemComponent::StartSkill(const ESkillType& SkillType)
 	{
 		switch (SkillType)
 		{
+		//case ESkillType::EST_KatanaBaseAttack:
+		//	UKatanaBaseAttack* KatanaBaseAttack = Cast<UKatanaBaseAttack>(NewSkill);
+		//	if (KatanaBaseAttack)
+		//	{
+		//		KatanaBaseAttack->StartSkill();
+		//	}
+		//	break;
+
+		//case ESkillType::EST_KatanaBattojutsu:
+		//	UKatanaBattojutsu* KatanaBattojutsu = Cast<UKatanaBattojutsu>(NewSkill);
+		//	if (KatanaBattojutsu)
+		//	{
+		//		KatanaBattojutsu->StartSkill();
+		//	}
+		//	break;
+
 		case ESkillType::EST_KatanaBaseAttack:
-			UKatanaBaseAttack* KatanaBaseAttack = Cast<UKatanaBaseAttack>(NewSkill);
-			if (KatanaBaseAttack)
-			{
-				KatanaBaseAttack->StartSkill();
-			}
+			NewSkill = Cast<UKatanaBaseAttack>(NewSkill);
 			break;
+
+		case ESkillType::EST_KatanaBattojutsu:
+			NewSkill = Cast<UKatanaBattojutsu>(NewSkill);
+			break;
+		}
+
+		if (NewSkill)
+		{
+			NewSkill->StartSkill();
 		}
 	}
 }

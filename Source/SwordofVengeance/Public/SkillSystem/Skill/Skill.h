@@ -12,7 +12,7 @@ UENUM(BlueprintType)
 enum class ESkillType : uint8
 {
 	EST_KatanaBaseAttack	UMETA(DisplayName = "KatanaBaseAttack"),
-	EST_Skill1				UMETA(DisplayName = "Skill1"),
+	EST_KatanaBattojutsu	UMETA(DisplayName = "KatanaBattojutsu"),
 };
 
 UCLASS(BlueprintType, Blueprintable)
