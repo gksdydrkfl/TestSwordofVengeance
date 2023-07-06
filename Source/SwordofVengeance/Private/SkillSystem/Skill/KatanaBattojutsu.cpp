@@ -19,6 +19,6 @@ void UKatanaBattojutsu::StartSkill()
 	{
 		FName SectionName = "Battojutsu";
 
-		SlayAnimInstance->PlayAttackMontage(SectionName, 0.5f);
+		SlayAnimInstance->PlayAttackMontage(SectionName, 1.f);
 	}
 }
