@@ -39,6 +39,9 @@ void AKatana::PlaySound()
 	case EWeaponSound::EWS_SwordSwing2:
 		SoundBase = KatanaSoundAsset->SwordSwingSound[1];
 		break;
+	case EWeaponSound::EWS_Battojutsu:
+		SoundBase = KatanaSoundAsset->BattojutsuSound;
+		break;
 	default:
 		break;
 	}

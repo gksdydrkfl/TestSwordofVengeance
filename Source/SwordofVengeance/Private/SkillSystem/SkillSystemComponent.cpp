@@ -54,22 +54,6 @@ void USkillSystemComponent::StartSkill(const ESkillType& SkillType)
 	{
 		switch (SkillType)
 		{
-		//case ESkillType::EST_KatanaBaseAttack:
-		//	UKatanaBaseAttack* KatanaBaseAttack = Cast<UKatanaBaseAttack>(NewSkill);
-		//	if (KatanaBaseAttack)
-		//	{
-		//		KatanaBaseAttack->StartSkill();
-		//	}
-		//	break;
-
-		//case ESkillType::EST_KatanaBattojutsu:
-		//	UKatanaBattojutsu* KatanaBattojutsu = Cast<UKatanaBattojutsu>(NewSkill);
-		//	if (KatanaBattojutsu)
-		//	{
-		//		KatanaBattojutsu->StartSkill();
-		//	}
-		//	break;
-
 		case ESkillType::EST_KatanaBaseAttack:
 			NewSkill = Cast<UKatanaBaseAttack>(NewSkill);
 			break;

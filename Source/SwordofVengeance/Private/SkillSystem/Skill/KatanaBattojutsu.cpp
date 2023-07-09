@@ -4,6 +4,7 @@
 #include "SkillSystem/Skill/KatanaBattojutsu.h"
 #include "Character/Animation/SlayAnimInstance.h"
 #include "Character/Slay.h"
+#include "Item/Equipment/Weapon/Katana.h"
 UKatanaBattojutsu::UKatanaBattojutsu()
 {
 	SkillType = ESkillType::EST_KatanaBattojutsu;
@@ -12,13 +13,30 @@ UKatanaBattojutsu::UKatanaBattojutsu()
 
 void UKatanaBattojutsu::StartSkill()
 {
+	bool bCanAttack = CanAttackingState();
 
-	USlayAnimInstance* SlayAnimInstance = Cast<USlayAnimInstance>(Slay->GetMesh()->GetAnimInstance());
 
-	if (SlayAnimInstance)
+	if (bCanAttack)
 	{
-		FName SectionName = "Battojutsu";
+		Slay->SetCanAttack(false);
 
-		SlayAnimInstance->PlayAttackMontage(SectionName, 1.f);
+		USlayAnimInstance* SlayAnimInstance = Cast<USlayAnimInstance>(Slay->GetMesh()->GetAnimInstance());
+
+		if (SlayAnimInstance)
+		{
+			FName SectionName = "Battojutsu";
+
+			SlayAnimInstance->PlayAttackMontage(SectionName, 1.f);
+		}
+
+		if (Slay)
+		{
+			AKatana* Katana = Cast<AKatana>(Slay->GetCurrentWeapon());
+			if (Katana)
+			{
+				Katana->SetWeaponSound(EWeaponSound::EWS_Battojutsu);
+			}
+
+		}
 	}
 }

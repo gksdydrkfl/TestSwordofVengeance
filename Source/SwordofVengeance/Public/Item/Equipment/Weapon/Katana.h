@@ -12,6 +12,7 @@ enum class EWeaponSound : uint8
 	EWS_DrawSword		UMETA(DisplayName = "DrawSword"),
 	EWS_SwordSwing1		UMETA(DisplayName = "SwordSwing1"),
 	EWS_SwordSwing2		UMETA(DisplayName = "SwordSwing2"),
+	EWS_Battojutsu		UMETA(DisplayName = "Battojutsu")
 };
 
 UCLASS()

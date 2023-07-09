@@ -18,6 +18,7 @@
 #include "SkillSystem/SkillSystemComponent.h"
 #include "Item/Equipment/Weapon/Katana.h"
 #include "SkillSystem/Skill/KatanaBaseAttack.h"
+#include "GroomComponent.h"
 
 ASlay::ASlay() :
 	ActionState(EActionState::EAS_None),
@@ -28,8 +29,8 @@ ASlay::ASlay() :
 	bBattleMode(false),
 	LastInputDirection(FVector::ZeroVector),
 	RollingDirection(FVector::ZeroVector),
-	bRun(false),
-	PrevSpeed(0.f)
+	PrevSpeed(0.f),
+	bRun(false)
 {
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	CameraBoom->SetupAttachment(RootComponent);
@@ -58,6 +59,14 @@ ASlay::ASlay() :
 	SkillSystem = CreateDefaultSubobject<USkillSystemComponent>(TEXT("SkillSystem"));
 
 	PrevSpeed = GetCharacterMovement()->MaxWalkSpeed;
+
+	Hair = CreateDefaultSubobject<UGroomComponent>(TEXT("Hair"));
+	Hair->SetupAttachment(GetMesh());
+	Hair->AttachmentName = FString("head");
+
+	Eyebrows = CreateDefaultSubobject<UGroomComponent>(TEXT("Eyebrows"));
+	Eyebrows->SetupAttachment(GetMesh());
+	Eyebrows->AttachmentName = FString("head");
 }
 
 void ASlay::BeginPlay()

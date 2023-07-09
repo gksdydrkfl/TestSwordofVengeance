@@ -21,4 +21,7 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TArray<USoundBase*> SwordSwingSound;
+
+	UPROPERTY(EditAnywhere)
+	USoundBase* BattojutsuSound;
 };

@@ -3,13 +3,13 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "SkillSystem/Skill/Skill.h"
+#include "SkillSystem/Skill/KatanaSkill.h"
 #include "KatanaBaseAttack.generated.h"
 
 class ASlay;
 class UMotionWarpingComponent;
 UCLASS()
-class SWORDOFVENGEANCE_API UKatanaBaseAttack : public USkill
+class SWORDOFVENGEANCE_API UKatanaBaseAttack : public UKatanaSkill
 {
 	GENERATED_BODY()
 	
@@ -22,16 +22,9 @@ private:
 	UPROPERTY()
 	UMotionWarpingComponent* MotionWarpingComp;
 
-	int32 KatanaCombo = 0;
-
 	float MotionWarpingTargectDistance = 0.f;
 
 public:
 
 	virtual void StartSkill() override;
-
-	bool CanAttackingState();
-
-	void ResetComboAttack();
-
 };

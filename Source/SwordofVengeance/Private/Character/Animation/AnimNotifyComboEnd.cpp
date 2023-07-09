@@ -4,7 +4,7 @@
 #include "Character/Animation/AnimNotifyComboEnd.h"
 #include "Character/Slay.h"
 #include "SkillSystem/SkillSystemComponent.h"
-#include "SkillSystem/Skill/KatanaBaseAttack.h"
+#include "SkillSystem/Skill/KatanaSkill.h"
 #include "SwordofVengeance/DebugMacro.h"
 void UAnimNotifyComboEnd::Notify(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation, const FAnimNotifyEventReference& EventReference)
 {
@@ -20,10 +20,10 @@ void UAnimNotifyComboEnd::Notify(USkeletalMeshComponent* MeshComp, UAnimSequence
 			USkill* Skill = SkillSystem->GetSkill(ESkillType::EST_KatanaBaseAttack);
 			if (Skill)
 			{
-				UKatanaBaseAttack* KatanaBaseAttack = Cast<UKatanaBaseAttack>(Skill);
-				if (KatanaBaseAttack)
+				UKatanaSkill* KatanaSkill = Cast<UKatanaSkill>(Skill);
+				if (KatanaSkill)
 				{
-					KatanaBaseAttack->ResetComboAttack();
+					KatanaSkill->ResetComboAttack();
 				}
 			}
 		}

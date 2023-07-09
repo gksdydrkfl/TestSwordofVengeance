@@ -18,6 +18,8 @@ class USlayAnimInstance;
 class UMotionWarpingComponent;
 class UTargetSystemComponent;
 class USkillSystemComponent;
+class UGroomComponent;
+
 
 UCLASS()
 class SWORDOFVENGEANCE_API ASlay : public ACharacter, public ITargetSystemInterface
@@ -100,6 +102,13 @@ private:
 	float PrevSpeed;
 
 	bool bRun;
+
+	UPROPERTY(VisibleAnywhere, Category = "Hair")
+	UGroomComponent* Hair;
+
+	UPROPERTY(VisibleAnywhere, Category = "Hair")
+	UGroomComponent* Eyebrows;
+
 protected:
 
 	void Move(const FInputActionValue& Vaslue);

@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "SkillSystem/Skill/Skill.h"
+#include "SkillSystem/Skill/KatanaSkill.h"
 #include "KatanaBattojutsu.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class SWORDOFVENGEANCE_API UKatanaBattojutsu : public USkill
+class SWORDOFVENGEANCE_API UKatanaBattojutsu : public UKatanaSkill
 {
 	GENERATED_BODY()
 public:               

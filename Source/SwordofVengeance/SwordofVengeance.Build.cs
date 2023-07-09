@@ -8,7 +8,7 @@ public class SwordofVengeance : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "MotionWarping", "UMG" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "MotionWarping", "UMG", "HairStrandsCore", "Niagara" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
