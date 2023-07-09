@@ -2,6 +2,7 @@
 
 
 #include "Character/AttributeComponent.h"
+#include "AttributeComponent.h"
 
 // Sets default values for this component's properties
 UAttributeComponent::UAttributeComponent()
@@ -30,5 +31,10 @@ void UAttributeComponent::TickComponent(float DeltaTime, ELevelTick TickType, FA
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
+
+void UAttributeComponent::Init()
+{
+	Health = 100.f;
 }
 

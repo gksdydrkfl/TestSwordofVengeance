@@ -19,7 +19,7 @@ class UMotionWarpingComponent;
 class UTargetSystemComponent;
 class USkillSystemComponent;
 class UGroomComponent;
-
+class UAttributeComponent;
 
 UCLASS()
 class SWORDOFVENGEANCE_API ASlay : public ACharacter, public ITargetSystemInterface
@@ -108,6 +108,8 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Hair")
 	UGroomComponent* Eyebrows;
+
+	UAttributeComponent* Attribute;
 
 protected:
 

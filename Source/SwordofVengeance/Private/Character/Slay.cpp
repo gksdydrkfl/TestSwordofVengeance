@@ -19,7 +19,7 @@
 #include "Item/Equipment/Weapon/Katana.h"
 #include "SkillSystem/Skill/KatanaBaseAttack.h"
 #include "GroomComponent.h"
-
+#include "AttributeComponent.h"
 ASlay::ASlay() :
 	ActionState(EActionState::EAS_None),
 	CharacterState(ECharacterState::ECS_UnEquipped),
@@ -67,6 +67,8 @@ ASlay::ASlay() :
 	Eyebrows = CreateDefaultSubobject<UGroomComponent>(TEXT("Eyebrows"));
 	Eyebrows->SetupAttachment(GetMesh());
 	Eyebrows->AttachmentName = FString("head");
+
+	Attribute = CreateDefaultSubobject<UAttributeComponent>(TEXT("Attribute"));
 }
 
 void ASlay::BeginPlay()
@@ -114,6 +116,8 @@ void ASlay::BeginPlay()
 	{
 		SlayAnimInstance->LinkAnimClassLayers(UnarmedAnimLayer);
 	}
+
+	Attribute->Init();
 }
 
 void ASlay::Tick(float DeltaTime)
