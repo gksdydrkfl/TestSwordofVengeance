@@ -6,8 +6,12 @@
 #include "SkillSystem/Skill/KatanaBaseAttack.h"
 #include "SkillSystem/Skill/KatanaBattojutsu.h"
 #include "SwordofVengeance/DebugMacro.h"
+#include "Widget/SkillListWidget.h"
+#include "Kismet/GameplayStatics.h"
+
 // Sets default values for this component's properties
-USkillSystemComponent::USkillSystemComponent()
+USkillSystemComponent::USkillSystemComponent() :
+	bShowSkillWidget(false)
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
@@ -83,6 +87,53 @@ USkill* USkillSystemComponent::GetSkill(const ESkillType& SkillType)
 
 	}
 	return nullptr;
+}
+
+void USkillSystemComponent::ShowSkillWidget()
+{
+	bShowSkillWidget = !bShowSkillWidget;
+	
+	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+
+	if (bShowSkillWidget)
+	{
+		if (SkillListWidgetClass)
+		{
+			if (SkillListWidget == nullptr)
+			{
+				SkillListWidget = CreateWidget<USkillListWidget>(GetWorld(), SkillListWidgetClass);
+
+				if (SkillListWidget)
+				{
+					SkillListWidget->SetDesiredSizeInViewport(FVector2D(700.f, 550.f));
+					SkillListWidget->SetPositionInViewport(FVector2D(610.f, 300.f));
+					SkillListWidget->AddToViewport();
+
+					if (PlayerController)
+					{
+						PlayerController->SetShowMouseCursor(true);
+						FInputModeGameAndUI InputMode;
+						PlayerController->SetInputMode(InputMode);
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		if (SkillListWidget)
+		{
+			SkillListWidget->RemoveFromParent();
+			SkillListWidget = nullptr;
+
+			if (PlayerController)
+			{
+				PlayerController->SetShowMouseCursor(false);
+				FInputModeGameOnly InputMode;
+				PlayerController->SetInputMode(InputMode);
+			}
+		}
+	}
 }
 
 

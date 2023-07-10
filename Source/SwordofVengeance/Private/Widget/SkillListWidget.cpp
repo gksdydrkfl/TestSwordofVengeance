@@ -7,6 +7,7 @@
 #include "DataAsset/SkillData.h"
 #include "Components/ListView.h"
 
+
 USkillListWidget::USkillListWidget(const FObjectInitializer& ObjectInitializer) : 
 	Super(ObjectInitializer)
 {

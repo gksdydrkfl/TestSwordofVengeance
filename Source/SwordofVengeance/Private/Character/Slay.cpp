@@ -142,6 +142,7 @@ void ASlay::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		EnhancedInputComponent->BindAction(InputActions->GuardAction, ETriggerEvent::Triggered, this, &ASlay::Guard);
 		EnhancedInputComponent->BindAction(InputActions->RunAction, ETriggerEvent::Triggered, this, &ASlay::Run);
 		EnhancedInputComponent->BindAction(InputActions->Skill_01, ETriggerEvent::Triggered, this, &ASlay::Skill_01);
+		EnhancedInputComponent->BindAction(InputActions->ShowSkillAction, ETriggerEvent::Triggered, this, &ASlay::ShowSkillWidget);
 	}
 }
 
@@ -298,6 +299,14 @@ void ASlay::Skill_01(const FInputActionValue& Value)
 	{
 		SkillSystem->StartSkill(ESkillType::EST_KatanaBattojutsu);
 
+	}
+}
+
+void ASlay::ShowSkillWidget(const FInputActionValue& Value)
+{
+	if (SkillSystem)
+	{
+		SkillSystem->ShowSkillWidget();
 	}
 }
 

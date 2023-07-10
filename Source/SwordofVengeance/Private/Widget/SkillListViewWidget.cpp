@@ -6,6 +6,18 @@
 #include "Components/TextBlock.h"
 #include "SwordofVengeance/DebugMacro.h"
 #include "DataAsset/SkillData.h"
+#include "Components/Button.h"
+#include "SwordofVengeance/DebugMacro.h"
+
+void USkillListViewWidget::NativeConstruct()
+{
+	Super::NativeConstruct();
+
+	if (SkillIconButton)
+	{
+		SkillIconButton->OnClicked.AddDynamic(this, &USkillListViewWidget::SkillIconButtonClicked);
+	}
+}
 
 void USkillListViewWidget::NativeOnListItemObjectSet(UObject* ListItemObject)
 {
@@ -29,4 +41,9 @@ void USkillListViewWidget::NativeOnListItemObjectSet(UObject* ListItemObject)
 
 void USkillListViewWidget::NativeOnItemSelectionChanged(bool bIsSelected)
 {
+}
+
+void USkillListViewWidget::SkillIconButtonClicked()
+{
+	Debug::Log("Button Clicked");
 }

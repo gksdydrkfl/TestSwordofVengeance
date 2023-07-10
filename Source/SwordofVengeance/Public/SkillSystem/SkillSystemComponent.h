@@ -9,7 +9,7 @@
 
 class USkill;
 class ASlay;
-
+class USkillListWidget;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class SWORDOFVENGEANCE_API USkillSystemComponent : public UActorComponent
@@ -37,6 +37,13 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	USkill* NewSkill;
+
+	UPROPERTY(EditAnywhere, Category = "Widget", meta = (AllowPrivateAccess = true))
+	TSubclassOf<USkillListWidget> SkillListWidgetClass;
+
+	bool bShowSkillWidget;
+
+	USkillListWidget* SkillListWidget;
 public:
 
 	FORCEINLINE TMap<ESkillType, USkill*> GetSkills() const { return Skills; }
@@ -46,5 +53,7 @@ public:
 	void StartSkill(const ESkillType& SkillType);
 
 	USkill* GetSkill(const ESkillType& SkillType);
+
+	void ShowSkillWidget();
 
 };

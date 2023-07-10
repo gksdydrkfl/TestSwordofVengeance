@@ -10,6 +10,7 @@
 class USkillData;
 class UImage;
 class UTextBlock;
+class UButton;
 
 UCLASS()
 class SWORDOFVENGEANCE_API USkillListViewWidget : public UUserWidget, public IUserObjectListEntry
@@ -17,6 +18,8 @@ class SWORDOFVENGEANCE_API USkillListViewWidget : public UUserWidget, public IUs
 	GENERATED_BODY()
 	
 public:
+
+	virtual void NativeConstruct() override;
 
 	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
 
@@ -28,11 +31,19 @@ private:
 	UPROPERTY()
 	USkillData* SkillData;
 
-public:
+private:
 
 	UPROPERTY(meta = (BindWidget))
 	UImage* SkillIcon;
 
 	UPROPERTY(meta = (BindWidget))
 	UTextBlock* SkillDesc;
+
+	UPROPERTY(meta = (BindWidget))
+	UButton* SkillIconButton;
+
+public:
+
+	UFUNCTION()
+	void SkillIconButtonClicked();
 };
