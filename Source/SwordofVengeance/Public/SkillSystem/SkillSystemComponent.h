@@ -10,6 +10,7 @@
 class USkill;
 class ASlay;
 
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class SWORDOFVENGEANCE_API USkillSystemComponent : public UActorComponent
 {

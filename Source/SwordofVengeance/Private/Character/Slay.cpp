@@ -19,7 +19,7 @@
 #include "Item/Equipment/Weapon/Katana.h"
 #include "SkillSystem/Skill/KatanaBaseAttack.h"
 #include "GroomComponent.h"
-#include "AttributeComponent.h"
+#include "Character/AttributeComponent.h"
 ASlay::ASlay() :
 	ActionState(EActionState::EAS_None),
 	CharacterState(ECharacterState::ECS_UnEquipped),

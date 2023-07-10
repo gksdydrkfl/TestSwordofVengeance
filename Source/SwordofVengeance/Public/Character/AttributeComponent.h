@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "AttributeComponent.generated.h"
 
+DECLARE_MULTICAST_DELEGATE_OneParam(FHealthDelegate, float)
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class UAttributeComponent : public UActorComponent
@@ -30,10 +31,15 @@ private:
 
 	float Health;
 
+	float HealthMax;
 public:
 
+	FHealthDelegate HealthDelegate;
+
 	FORCEINLINE float GetHealth()const { return Health; };
-	
+
+	void SetHealth(float NewHealth);
+
 public:
 
 	void Init();

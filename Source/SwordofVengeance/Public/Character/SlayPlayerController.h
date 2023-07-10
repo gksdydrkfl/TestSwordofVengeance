@@ -25,6 +25,7 @@ protected:
 
 	virtual void BeginPlay() override;
 
+
 private:
 
 	UPROPERTY(EditAnywhere, Category = "Widget", meta = (AllowPrivateAccess = true))

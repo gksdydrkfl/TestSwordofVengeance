@@ -109,6 +109,7 @@ private:
 	UPROPERTY(VisibleAnywhere, Category = "Hair")
 	UGroomComponent* Eyebrows;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Attribute", meta = (AllowPrivateAccess = true))
 	UAttributeComponent* Attribute;
 
 protected:
@@ -135,6 +136,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	FORCEINLINE UTargetSystemComponent* GetTargetSystem() const { return TargetSystem; };
 	FORCEINLINE USkillSystemComponent* GetSkillSystem() const { return SkillSystem; };
+	FORCEINLINE UAttributeComponent* GetAttribute() const { return Attribute; };
 
 	FORCEINLINE void SetCanAttack(const bool& Value) { bCanAttack = Value; };
 	FORCEINLINE void SetActionState(const EActionState& NewState) { ActionState = NewState; };

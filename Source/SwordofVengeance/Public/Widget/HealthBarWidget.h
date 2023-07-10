@@ -6,12 +6,23 @@
 #include "Blueprint/UserWidget.h"
 #include "HealthBarWidget.generated.h"
 
-/**
- * 
- */
+class UProgressBar;
+
 UCLASS()
 class SWORDOFVENGEANCE_API UHealthBarWidget : public UUserWidget
 {
 	GENERATED_BODY()
 	
+public:
+
+	virtual void NativeConstruct() override;
+
+private:
+
+	UPROPERTY(meta = (BindWidget))
+	UProgressBar* HealthBar;
+
+public:
+
+	void UpdateHealth(float NewHealth);
 };
