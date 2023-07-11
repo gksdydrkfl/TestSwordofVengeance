@@ -56,4 +56,6 @@ public:
 
 	void ShowSkillWidget();
 
+	FORCEINLINE void SetShowSkillWidget(bool NewValue) {bShowSkillWidget = NewValue; };
+
 };

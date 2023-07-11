@@ -99,16 +99,21 @@ void USkillSystemComponent::ShowSkillWidget()
 	{
 		if (SkillListWidgetClass)
 		{
+			if (SkillListWidget != nullptr)
+			{
+				SkillListWidget->RemoveFromParent();
+				SkillListWidget = nullptr;
+			}
 			if (SkillListWidget == nullptr)
 			{
 				SkillListWidget = CreateWidget<USkillListWidget>(GetWorld(), SkillListWidgetClass);
 
 				if (SkillListWidget)
 				{
-					SkillListWidget->SetDesiredSizeInViewport(FVector2D(700.f, 550.f));
-					SkillListWidget->SetPositionInViewport(FVector2D(610.f, 300.f));
+					//SkillListWidget->SetDesiredSizeInViewport(FVector2D(700.f, 550.f));
+					//SkillListWidget->SetPositionInViewport(FVector2D(610.f, 300.f));
 					SkillListWidget->AddToViewport();
-
+					SkillListWidget->SetSkillComponent(this);
 					if (PlayerController)
 					{
 						PlayerController->SetShowMouseCursor(true);

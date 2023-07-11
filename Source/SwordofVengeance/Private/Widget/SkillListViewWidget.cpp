@@ -8,15 +8,13 @@
 #include "DataAsset/SkillData.h"
 #include "Components/Button.h"
 #include "SwordofVengeance/DebugMacro.h"
+#include "Blueprint/WidgetBlueprintLibrary.h"
+#include "Widget/SkillSlotWidget.h"
 
 void USkillListViewWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	if (SkillIconButton)
-	{
-		SkillIconButton->OnClicked.AddDynamic(this, &USkillListViewWidget::SkillIconButtonClicked);
-	}
 }
 
 void USkillListViewWidget::NativeOnListItemObjectSet(UObject* ListItemObject)
@@ -31,7 +29,12 @@ void USkillListViewWidget::NativeOnListItemObjectSet(UObject* ListItemObject)
 
 		if (NewSkillIcon)
 		{
-			SkillIcon->SetBrushFromTexture(NewSkillIcon);
+			if (SkillSlotWidget)
+			{
+				SkillSlotWidget->SetImage(NewSkillIcon);
+
+				SkillSlotWidget->SetSlotIndex(SkillData->SlotIndex);
+			}
 		}
 
 		SkillDesc->SetText(NewSkillDesc);

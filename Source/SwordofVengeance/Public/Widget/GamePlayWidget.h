@@ -14,4 +14,7 @@ class SWORDOFVENGEANCE_API UGamePlayWidget : public UUserWidget
 {
 	GENERATED_BODY()
 	
+public:
+
+
 };

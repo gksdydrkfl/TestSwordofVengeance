@@ -21,9 +21,11 @@ public:
 	UPROPERTY(EditAnywhere)
 	FName SkillDesc;
 
+	
+	int32 SlotIndex;
 public:
 
-	void Init(UTexture2D* NewTexture, FName NewSkillDesc);
+	void Init(UTexture2D* NewTexture, FName NewSkillDesc, int32 NewSlotIndex);
 
 	FORCEINLINE UTexture2D* GetTexture() const { return SkillIcon; }
 	FORCEINLINE FName GetSkillDesc() const { return SkillDesc; }

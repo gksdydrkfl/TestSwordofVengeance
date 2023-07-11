@@ -9,6 +9,8 @@
 
 class USkillData;
 class UListView;
+class UButton;
+class USkillSystemComponent;
 
 USTRUCT(BlueprintType)
 struct FSkillDataTable : public FTableRowBase
@@ -37,8 +39,19 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	UListView* SkillListWidget;
 
+	UPROPERTY(meta = (BindWidget))
+	UButton* SkillExitButton;
+
 	UDataTable* SkillDataTable;
 
 	UPROPERTY()
 	USkillData* SkillData;
+
+	USkillSystemComponent* SkillComponent;
+public:
+
+	FORCEINLINE void SetSkillComponent(USkillSystemComponent* NewSkillComponent) { SkillComponent = NewSkillComponent; }
+
+	UFUNCTION()
+	void SkillExitButtonClicked();
 };

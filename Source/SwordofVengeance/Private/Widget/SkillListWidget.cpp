@@ -6,7 +6,10 @@
 #include "Components/ListView.h"
 #include "DataAsset/SkillData.h"
 #include "Components/ListView.h"
-
+#include "Components/Button.h"
+#include "SwordofVengeance/DebugMacro.h"
+#include "Kismet/GameplayStatics.h"
+#include "SkillSystem/SkillSystemComponent.h"
 
 USkillListWidget::USkillListWidget(const FObjectInitializer& ObjectInitializer) : 
 	Super(ObjectInitializer)
@@ -32,6 +35,8 @@ void USkillListWidget::NativeConstruct()
 
 	TArray<FName> Names = SkillDataTable->GetRowNames();
 
+	int32 Count = 0;
+
 	for (FName Name : Names)
 	{
 		FSkillDataTable* SkillDataTAble = SkillDataTable->FindRow<FSkillDataTable>(Name, "");
@@ -42,11 +47,37 @@ void USkillListWidget::NativeConstruct()
 			{
 				UTexture2D* SkillIcon = SkillDataTAble->SkillIcon;
 				FName SkillDesc = SkillDataTAble->SkillDesc;
+				int32 SlotIndex = Count;
 
-				SkillData->Init(SkillIcon, SkillDesc);
+
+				SkillData->Init(SkillIcon, SkillDesc, SlotIndex);
 
 				SkillListWidget->AddItem(SkillData);
 			}
+		}
+	}
+
+	if (SkillExitButton)
+	{
+		SkillExitButton->OnClicked.AddDynamic(this, &USkillListWidget::SkillExitButtonClicked);
+	}
+}
+
+void USkillListWidget::SkillExitButtonClicked()
+{
+	Debug::Log("ButtonClicked");
+	RemoveFromParent();
+
+	APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	if (PlayerController)
+	{
+		PlayerController->SetShowMouseCursor(false);
+		FInputModeGameOnly InputMode;
+		PlayerController->SetInputMode(InputMode);
+
+		if (SkillComponent)
+		{
+			SkillComponent->SetShowSkillWidget(false);
 		}
 	}
 }
