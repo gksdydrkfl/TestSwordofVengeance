@@ -24,6 +24,11 @@ private:
 	UPROPERTY(meta = (BindWidget))
 	UUniformGridPanel* SkillSlotGrid;
 
+	UPROPERTY(EditAnywhere, meta = (AllowPrivateAccess = true))
+	UTexture2D* TransparentTexture;
+
 public:
+
+	void SerachOvelapSkill(const FName& SerachName, const int32& Index);
 
 };

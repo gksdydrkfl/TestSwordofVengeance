@@ -48,9 +48,9 @@ void USkillListWidget::NativeConstruct()
 				UTexture2D* SkillIcon = SkillDataTAble->SkillIcon;
 				FName SkillDesc = SkillDataTAble->SkillDesc;
 				int32 SlotIndex = Count;
+				FName SkillName = SkillDataTAble->SkillName;
 
-
-				SkillData->Init(SkillIcon, SkillDesc, SlotIndex);
+				SkillData->Init(SkillIcon, SkillDesc, SlotIndex, SkillName);
 
 				SkillListWidget->AddItem(SkillData);
 			}

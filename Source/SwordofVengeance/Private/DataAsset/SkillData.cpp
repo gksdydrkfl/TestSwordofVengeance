@@ -3,7 +3,7 @@
 
 #include "DataAsset/SkillData.h"
 
-void USkillData::Init(UTexture2D* NewTexture, FName NewSkillDesc, int32 NewSlotIndex)
+void USkillData::Init(UTexture2D* NewTexture, const FName& NewSkillDesc, const int32& NewSlotIndex, const FName& NewSkillName)
 {
 	if (NewTexture)
 	{
@@ -12,5 +12,7 @@ void USkillData::Init(UTexture2D* NewTexture, FName NewSkillDesc, int32 NewSlotI
 	SkillDesc = NewSkillDesc;
 
 	SlotIndex = NewSlotIndex;
+
+	SkillName = NewSkillName;
 }
 

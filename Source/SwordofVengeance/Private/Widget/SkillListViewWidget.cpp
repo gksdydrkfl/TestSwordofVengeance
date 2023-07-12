@@ -34,10 +34,13 @@ void USkillListViewWidget::NativeOnListItemObjectSet(UObject* ListItemObject)
 				SkillSlotWidget->SetImage(NewSkillIcon);
 
 				SkillSlotWidget->SetSlotIndex(SkillData->SlotIndex);
+
+				SkillSlotWidget->SetSkillData(SkillData);
 			}
 		}
 
 		SkillDesc->SetText(NewSkillDesc);
+
 	}
 
 }

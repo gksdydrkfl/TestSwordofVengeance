@@ -18,6 +18,9 @@ struct FSkillDataTable : public FTableRowBase
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere)
+	FName SkillName;
+
+	UPROPERTY(EditAnywhere)
 	UTexture2D* SkillIcon;
 
 	UPROPERTY(EditAnywhere)

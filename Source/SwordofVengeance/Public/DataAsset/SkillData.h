@@ -23,11 +23,15 @@ public:
 
 	
 	int32 SlotIndex;
+
+	FName SkillName;
 public:
 
-	void Init(UTexture2D* NewTexture, FName NewSkillDesc, int32 NewSlotIndex);
+	void Init(UTexture2D* NewTexture, const FName& NewSkillDesc, const int32& NewSlotIndex, const FName& NewSkillName);
 
 	FORCEINLINE UTexture2D* GetTexture() const { return SkillIcon; }
 	FORCEINLINE FName GetSkillDesc() const { return SkillDesc; }
+	FORCEINLINE FName GetSkillName() const { return SkillName; }
+	FORCEINLINE void SetSkillIndex(const int32& NewIndex) { SlotIndex = NewIndex; }
 
 };
