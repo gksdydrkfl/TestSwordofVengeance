@@ -10,6 +10,7 @@
 #include "Widget/SkillBarWidget.h"
 #include "DataAsset/SkillData.h"
 #include "Components/Button.h"
+#include "Components/TextBlock.h"
 
 void USkillSlotWidget::NativeConstruct()
 {
@@ -61,6 +62,21 @@ void USkillSlotWidget::NativeOnDragDetected(const FGeometry& InGeometry, const F
 {
 	Super::NativeOnDragDetected(InGeometry, InMouseEvent, OutOperation);
 
+	if (SkillData)
+	{
+		bool bActive = SkillData->GetSkillActive();
+		if (bActive == false)
+		{
+			return;
+
+		}
+	}
+	else
+	{
+		return;
+	}
+
+
 	USkillSlotDragWidget* Operation = NewObject<USkillSlotDragWidget>();
 	this->SetVisibility(ESlateVisibility::HitTestInvisible);
 
@@ -79,13 +95,31 @@ bool USkillSlotWidget::NativeOnDrop(const FGeometry& InGeometry, const FDragDrop
 
 	USkillSlotWidget* SkillSlotWidget = Cast<USkillSlotWidget>(Operation->WidgetReference);
 
-	SkillData = SkillSlotWidget->GetSkillData();
+	//USkillData* TempSkillData = SkillData;
 
-	EquipSkill(SkillSlotWidget);
+	//SkillData = SkillSlotWidget->GetSkillData();
+
+	bool bEquipSkill = EquipSkill(SkillSlotWidget);
 
 	SkillSlotWidget->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
 
-	return Operation ? true : false;
+	if (SkillData)
+	{
+		SetText(SkillData->SkillName);
+	}
+
+	if (SkillSlotWidget->SkillData)
+	{
+		SkillSlotWidget->SetText(SkillData->SkillName);
+	}
+	else
+	{
+		SkillSlotWidget->SetText(FName(" "));
+	}
+
+	return bEquipSkill ? true : false;
+
+	//return Operation ? true : false;
 }
 
 void USkillSlotWidget::NativeOnDragLeave(const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
@@ -94,36 +128,41 @@ void USkillSlotWidget::NativeOnDragLeave(const FDragDropEvent& InDragDropEvent, 
 
 }
 
-void USkillSlotWidget::EquipSkill(USkillSlotWidget* Widget)
+bool USkillSlotWidget::EquipSkill(USkillSlotWidget* Widget)
 {
-
-
 	switch (Widget->SkillWidgetType)
 	{
 	case ESkillSlotTypeWidget::ESSTW_SkillBar:
-		Swap(Widget);
-		break;
-	case ESkillSlotTypeWidget::ESSTW_SkillWindow:
-		USkillBarWidget* SkillBarWidget = Cast<USkillBarWidget>(ParentWidget);
 
-		if (SkillData)
+		Swap(Widget);
+
+		return true;
+
+	case ESkillSlotTypeWidget::ESSTW_SkillWindow:
+
+		if (ESkillSlotTypeWidget::ESSTW_SkillWindow == SkillWidgetType)
 		{
-			FName SkillName = SkillData->GetSkillName();
-			if (SkillData)
-			{
-				if (SkillBarWidget)
-				{
-					SkillBarWidget->SerachOvelapSkill(SkillName, SlotIndex);
-				}
-			}
+			return false;
 		}
 
-		SetImage(Widget->GetTexture());
-		break;
+		SkillData = Widget->GetSkillData();
+
+		USkillBarWidget* SkillBarWidget = Cast<USkillBarWidget>(ParentWidget);
+
+		if (SkillBarWidget)
+		{
+			if (SkillData)
+			{
+				FName Name = SkillData->GetSkillName();
+
+				SkillBarWidget->SearchOvelapSkill(Name, SlotIndex);
+			}
+			SetImage(Widget->GetTexture());
+
+		}
+		return true;
 	}
-
-
-
+	return true;
 }
 
 void USkillSlotWidget::SetImage(UTexture2D* NewTexture)
@@ -132,7 +171,7 @@ void USkillSlotWidget::SetImage(UTexture2D* NewTexture)
 	{
 		SkillIcon->SetBrushFromTexture(NewTexture);
 		SkillIcon->SetColorAndOpacity(FLinearColor(1.f, 1.f, 1.f, 1.f));
-		SkillIcon->SetBrushSize(FVector2D(70.f, 70.f));
+		SkillIcon->SetBrushSize(FVector2D(60.f, 60.f));
 		Texture = NewTexture;
 	}
 }
@@ -140,8 +179,18 @@ void USkillSlotWidget::SetImage(UTexture2D* NewTexture)
 void USkillSlotWidget::Swap(USkillSlotWidget* Widget)
 {
 	UTexture2D* TempTexture = Widget->GetTexture();
+	USkillData* Data = Widget->GetSkillData();
+
 	Widget->SetImage(Texture);
+	Widget->SetSkillData(SkillData);
+
 	SetImage(TempTexture);
+	SetSkillData(Data);
 	this->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
 	Widget->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+}
+
+void USkillSlotWidget::SetText(FName Name)
+{
+	SkillName->SetText(FText::FromName(Name));
 }

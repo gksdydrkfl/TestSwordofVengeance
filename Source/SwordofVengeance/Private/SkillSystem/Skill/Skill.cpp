@@ -4,6 +4,8 @@
 #include "SkillSystem/Skill/Skill.h"
 #include "Kismet/GameplayStatics.h"
 #include "Character/Slay.h"
+
+
 USkill::USkill()
 {
 }
@@ -17,5 +19,11 @@ void USkill::Init(ASlay* Character)
 }
 
 void USkill::StartSkill()
+{
+
+
+}
+
+void USkill::UpdateSkillWidget()
 {
 }

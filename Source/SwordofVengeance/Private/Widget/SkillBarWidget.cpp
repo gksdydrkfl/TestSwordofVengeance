@@ -6,7 +6,7 @@
 #include "SwordofVengeance/DebugMacro.h"
 #include "Components/UniformGridPanel.h"
 #include "DataAsset/SkillData.h"
-
+#include "SwordofVengeance/DebugMacro.h"
 //bool USkillBarWidget::NativeOnDrop(const FGeometry& InGeometry, const FDragDropEvent& InDragDropEvent, UDragDropOperation* InOperation)
 //{
 //	Super::NativeOnDrop(InGeometry, InDragDropEvent, InOperation);
@@ -46,35 +46,85 @@ void USkillBarWidget::NativeConstruct()
 
 }
 
-void USkillBarWidget::SerachOvelapSkill(const FName& SerachName, const int32& Index)
+void USkillBarWidget::SearchOvelapSkill(const FName& SearchName, const int32& Index)
+{
+	USkillSlotWidget* SkillSlotWidget = SearchSkill(SearchName, Index);
+	if (SkillSlotWidget)
+	{
+		SkillSlotWidget->SetImage(TransparentTexture);
+		//SkillSlotWidget->
+		SkillSlotWidget->SetText(FName(" "));
+	}
+
+}
+
+USkillSlotWidget* USkillBarWidget::SearchSkill(const FName& SearchName, const int32& Index, const bool& bComboCheck)
 {
 	for (int32 i = 0; i < 5; ++i)
 	{
-		if (i == Index)
+		if (bComboCheck == false)
 		{
-			continue;
+			if (i == Index)
+			{
+				continue;
+			}
 		}
+
 		UWidget* Widget = SkillSlotGrid->GetChildAt(i);
 
 		if (Widget == nullptr)
 		{
-			return;
+			return nullptr;
 		}
 
 		USkillSlotWidget* SkillSlotWidget = Cast<USkillSlotWidget>(Widget);
 
 		if (SkillSlotWidget)
 		{
-			if (SkillSlotWidget->GetSkillData()== nullptr)
+			if (SkillSlotWidget->GetSkillData() == nullptr)
 			{
 				continue;
 			}
 			FName SkillName = SkillSlotWidget->GetSkillData()->GetSkillName();
 
-			if (SkillName == SerachName)
+			if (SkillName == SearchName)
 			{
-				SkillSlotWidget->SetImage(TransparentTexture);
+				return SkillSlotWidget;
 			}
 		}
 	}
+	Debug::Log("NotSkill");
+	return nullptr;
+}
+
+void USkillBarWidget::UpdateSkillBar(const ESkillType& SearchName, int32 Index)
+{
+	Debug::Log(Index);
+
+	switch (SearchName)
+	{
+	case ESkillType::EST_KatanaBaseAttack:
+		USkillSlotWidget* SkillSlotWidget = SearchSkill(FName("ComboAttack"), 0, true);
+		if (SkillSlotWidget)
+		{
+			if (Index == 3)
+			{
+				Index = 0;
+			}
+			USkillData* SkillData = SkillSlotWidget->GetSkillData()->List[Index];
+			UTexture2D* Texture = SkillData->GetTexture();
+			if (Texture)
+			{
+				SkillSlotWidget->SetImage(Texture);
+			}
+		}
+		//SkillSlotWidget
+
+		break;
+	//case ESkillType::EST_KatanaBattojutsu:
+
+	//	break;
+	}
+
+
 }

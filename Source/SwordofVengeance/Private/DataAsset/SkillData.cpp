@@ -3,7 +3,7 @@
 
 #include "DataAsset/SkillData.h"
 
-void USkillData::Init(UTexture2D* NewTexture, const FName& NewSkillDesc, const int32& NewSlotIndex, const FName& NewSkillName)
+void USkillData::Init(UTexture2D* NewTexture, const FName& NewSkillDesc, const int32& NewSlotIndex, const FName& NewSkillName, const bool& bNewActive, const bool& NewbCombo)
 {
 	if (NewTexture)
 	{
@@ -14,5 +14,9 @@ void USkillData::Init(UTexture2D* NewTexture, const FName& NewSkillDesc, const i
 	SlotIndex = NewSlotIndex;
 
 	SkillName = NewSkillName;
+
+	bActive = bNewActive;
+
+	bCombo = NewbCombo;
 }
 

@@ -11,6 +11,7 @@ class UImage;
 class UTexture2D;
 class USkillData;
 class UButton;
+class UTextBlock;
 
 UCLASS()
 class SWORDOFVENGEANCE_API USkillSlotWidget : public UUserWidget
@@ -36,8 +37,10 @@ private:
 
 	USkillData* SkillData;
 
+	//UPROPERTY(meta = (BindWidget))
+	//UButton* SkillButton;
 	UPROPERTY(meta = (BindWidget))
-	UButton* SkillButton;
+	UTextBlock* SkillName;
 public:
 
 	UFUNCTION(BlueprintCallable)
@@ -65,10 +68,12 @@ public:
 	FORCEINLINE void SetSkillData(USkillData* Data) { SkillData = Data; };
 	FORCEINLINE USkillData* GetSkillData() const { return SkillData; };
 
-	void EquipSkill(USkillSlotWidget* Widget);
+	bool EquipSkill(USkillSlotWidget* Widget);
 
 	void SetImage(UTexture2D* NewTexture);
 
 	void Swap(USkillSlotWidget* Widget);
+
+	void SetText(FName Name);
 
 };

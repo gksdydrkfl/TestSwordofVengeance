@@ -25,6 +25,13 @@ struct FSkillDataTable : public FTableRowBase
 
 	UPROPERTY(EditAnywhere)
 	FName SkillDesc;
+
+	UPROPERTY(EditAnywhere)
+	bool bActive;
+
+	UPROPERTY(EditAnywhere)
+	bool bCombo;
+
 };
 
 UCLASS()
@@ -51,6 +58,7 @@ private:
 	USkillData* SkillData;
 
 	USkillSystemComponent* SkillComponent;
+
 public:
 
 	FORCEINLINE void SetSkillComponent(USkillSystemComponent* NewSkillComponent) { SkillComponent = NewSkillComponent; }
@@ -58,3 +66,4 @@ public:
 	UFUNCTION()
 	void SkillExitButtonClicked();
 };
+

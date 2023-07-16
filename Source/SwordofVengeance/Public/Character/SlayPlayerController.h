@@ -30,4 +30,11 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Widget", meta = (AllowPrivateAccess = true))
 	TSubclassOf<UGamePlayWidget> GamePlayWidgetClass;
+
+	UPROPERTY()
+	UGamePlayWidget* GamePlayWidget;
+
+public:
+
+	FORCEINLINE UGamePlayWidget* GetGamePlayWidget() const { return GamePlayWidget; };
 };

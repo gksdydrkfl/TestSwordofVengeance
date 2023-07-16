@@ -67,10 +67,7 @@ void USkillSystemComponent::StartSkill(const ESkillType& SkillType)
 			break;
 		}
 
-		if (NewSkill)
-		{
-			NewSkill->StartSkill();
-		}
+		NewSkill->StartSkill();
 	}
 }
 

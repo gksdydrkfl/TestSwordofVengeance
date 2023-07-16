@@ -16,7 +16,7 @@ void ASlayPlayerController::BeginPlay()
 
 	if (GamePlayWidgetClass)
 	{
-		UGamePlayWidget* GamePlayWidget = CreateWidget<UGamePlayWidget>(this, GamePlayWidgetClass);
+		GamePlayWidget = CreateWidget<UGamePlayWidget>(this, GamePlayWidgetClass);
 		if (GamePlayWidget)
 		{
 			GamePlayWidget->AddToViewport();

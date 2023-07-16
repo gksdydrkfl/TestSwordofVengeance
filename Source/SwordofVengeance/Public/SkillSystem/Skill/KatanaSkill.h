@@ -18,7 +18,7 @@ public:
 
 	UKatanaSkill();
 
-protected:
+private:
 
 	int32 KatanaCombo = 0;
 
@@ -29,4 +29,7 @@ protected:
 
 public:
 	virtual void ResetComboAttack();
+
+	FORCEINLINE int32 GetKatanaCombo() const { return KatanaCombo; };
+	FORCEINLINE void SetKatanaCombo(const int32& NewKatanaCombo) { KatanaCombo = NewKatanaCombo; };
 };

@@ -9,8 +9,11 @@
 #include "Interface/HitInterface.h"
 #include "Kismet/GameplayStatics.h"
 #include "DataAsset/KatanaSoundAsset.h"
+#include "Camera/CameraShake.h"
+#include "SwordofVengeance/DebugMacro.h"
+
 // Sets default values
-AWeapon::AWeapon()
+AWeapon::AWeapon() 
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -62,6 +65,13 @@ void AWeapon::DisabledBoxCollision(ECollisionEnabled::Type NewType)
 	}
 }
 
+void AWeapon::GlobalTimerFuncion()
+{
+	Debug::Log("GlobalTimer");
+
+	UGameplayStatics::SetGlobalTimeDilation(GetWorld(), 1.f);
+}
+
 void AWeapon::OnBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	const FVector Start = BoxCollisionStart->GetComponentLocation();
@@ -105,6 +115,16 @@ void AWeapon::OnBoxCollision(UPrimitiveComponent* OverlappedComponent, AActor* O
 				IgnoreActors.AddUnique(HitResult.GetActor());
 			}
 		}
+		UGameplayStatics::SetGlobalTimeDilation(GetWorld(), 0.05f);
+
+		GetWorld()->GetTimerManager().SetTimer(GlobalTimer, FTimerDelegate::CreateLambda([&]()
+			{
+
+				Debug::Log("GlobalTimer");
+
+				UGameplayStatics::SetGlobalTimeDilation(GetWorld(), 1.f);
+
+			}), 0.005f, false);
 	}
 }
 

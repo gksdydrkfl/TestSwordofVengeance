@@ -20,6 +20,8 @@
 #include "SkillSystem/Skill/KatanaBaseAttack.h"
 #include "GroomComponent.h"
 #include "Character/AttributeComponent.h"
+#include "Character/SlayPlayerController.h"
+
 ASlay::ASlay() :
 	ActionState(EActionState::EAS_None),
 	CharacterState(ECharacterState::ECS_UnEquipped),
@@ -118,6 +120,8 @@ void ASlay::BeginPlay()
 	}
 
 	Attribute->Init();
+
+	SlayController = Cast<ASlayPlayerController>(GetController());
 }
 
 void ASlay::Tick(float DeltaTime)
@@ -221,7 +225,6 @@ void ASlay::Attack(const FInputActionValue& Value)
 	if (SkillSystem)
 	{
 		SkillSystem->StartSkill(ESkillType::EST_KatanaBaseAttack);
-
 	}
 }
 

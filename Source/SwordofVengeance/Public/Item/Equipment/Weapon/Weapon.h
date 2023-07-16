@@ -52,16 +52,20 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
 	USceneComponent* BoxCollisionEnd;
 
+	FTimerHandle GlobalTimer;
 
 public:
 
 	FORCEINLINE TSubclassOf<UAnimInstance> GetNonCombatAnimClassLayers() { return NonCombatAnimClassLayers; }
 	FORCEINLINE TSubclassOf<UAnimInstance> GetCombatAnimClassLayers() { return CombatAnimClassLayers; }
 
+	FORCEINLINE void SetCharacter(ASlay* NewSlay) { Slay = NewSlay; }
+
 	void EnabledBoxCollision(ECollisionEnabled::Type NewType);
 	void DisabledBoxCollision(ECollisionEnabled::Type NewType);
 
-	FORCEINLINE void SetCharacter(ASlay* NewSlay) { Slay = NewSlay; }
+
+	void GlobalTimerFuncion();
 
 public:
 

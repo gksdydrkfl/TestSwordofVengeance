@@ -4,9 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "SkillSystem/Skill/SkillType.h"
 #include "SkillBarWidget.generated.h"
 
 class UUniformGridPanel;
+class USkillSlotWidget;
 
 UCLASS()
 class SWORDOFVENGEANCE_API USkillBarWidget : public UUserWidget
@@ -29,6 +31,10 @@ private:
 
 public:
 
-	void SerachOvelapSkill(const FName& SerachName, const int32& Index);
+	USkillSlotWidget* SearchSkill(const FName& SearchName, const int32& Index = 0, const bool& bComboCheck = false);
+
+	void SearchOvelapSkill(const FName& SearchName, const int32& Index);
+
+	void UpdateSkillBar(const ESkillType& SearchName, int32 Index = 0);
 
 };

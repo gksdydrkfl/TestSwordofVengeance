@@ -7,6 +7,11 @@
 #include "Character/Animation/SlayAnimInstance.h"
 #include "Item/Equipment/Weapon/Katana.h"
 #include "SwordofVengeance/DebugMacro.h"
+#include "Widget/GamePlayWidget.h"
+#include "Widget/SkillBarWidget.h"
+#include "Character/SlayPlayerController.h"
+
+
 UKatanaBaseAttack::UKatanaBaseAttack()
 {
 	SkillType = ESkillType::EST_KatanaBaseAttack;
@@ -21,6 +26,13 @@ void UKatanaBaseAttack::StartSkill()
 		return;
 	}
 
+	ASlayPlayerController* SlayController = Slay->GetSlayController();
+
+	if (SlayController == nullptr)
+	{
+		return;
+	}
+
 	bool bCanAttackingState = CanAttackingState();
 	if (bCanAttackingState == false)
 	{
@@ -31,9 +43,9 @@ void UKatanaBaseAttack::StartSkill()
 
 	Slay->SetCanAttack(false);
 
-	if (KatanaCombo >= 3)
+	if (GetKatanaCombo() >= 3)
 	{
-		KatanaCombo = 0;
+		SetKatanaCombo(0);
 	}
 
 
@@ -43,7 +55,7 @@ void UKatanaBaseAttack::StartSkill()
 	if (SlayAnimInstance)
 	{
 		FName SectionName = FName();
-		switch (KatanaCombo)
+		switch (GetKatanaCombo())
 		{
 		case 0:
 			SectionName = FName("Combo1");
@@ -61,7 +73,7 @@ void UKatanaBaseAttack::StartSkill()
 			WeaponSound = EWeaponSound::EWS_SwordSwing2;
 			break;
 		}
-		KatanaCombo++;
+		SetKatanaCombo(GetKatanaCombo() + 1);
 
 
 		Slay->SetMotionWarpingTargectDistance(MotionWarpingTargectDistance);
@@ -74,6 +86,8 @@ void UKatanaBaseAttack::StartSkill()
 	{
 		Katana->SetWeaponSound(WeaponSound);
 	}
+
+	SlayController->GetGamePlayWidget()->GetSkillBarWidget()->UpdateSkillBar(ESkillType::EST_KatanaBaseAttack, GetKatanaCombo());
 
 	Slay->SetCombatMode();
 }

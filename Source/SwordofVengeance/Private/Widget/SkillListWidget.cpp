@@ -10,6 +10,7 @@
 #include "SwordofVengeance/DebugMacro.h"
 #include "Kismet/GameplayStatics.h"
 #include "SkillSystem/SkillSystemComponent.h"
+#include "DataAsset/SkillData.h"
 
 USkillListWidget::USkillListWidget(const FObjectInitializer& ObjectInitializer) : 
 	Super(ObjectInitializer)
@@ -37,6 +38,8 @@ void USkillListWidget::NativeConstruct()
 
 	int32 Count = 0;
 
+	USkillData* TempData = nullptr;
+
 	for (FName Name : Names)
 	{
 		FSkillDataTable* SkillDataTAble = SkillDataTable->FindRow<FSkillDataTable>(Name, "");
@@ -45,14 +48,28 @@ void USkillListWidget::NativeConstruct()
 			SkillData = NewObject<USkillData>(this, USkillData::StaticClass());
 			if (SkillData)
 			{
+				//구조체 묶어서 사용하면 될듯
 				UTexture2D* SkillIcon = SkillDataTAble->SkillIcon;
 				FName SkillDesc = SkillDataTAble->SkillDesc;
 				int32 SlotIndex = Count;
 				FName SkillName = SkillDataTAble->SkillName;
-
-				SkillData->Init(SkillIcon, SkillDesc, SlotIndex, SkillName);
+				bool bActive = SkillDataTAble->bActive;
+				bool bCombo = SkillDataTAble->bCombo;
+				SkillData->Init(SkillIcon, SkillDesc, SlotIndex, SkillName, bActive, bCombo);
 
 				SkillListWidget->AddItem(SkillData);
+				if (bCombo)
+				{
+					if (TempData == nullptr)
+					{
+						TempData = SkillData;
+						TempData->List.AddUnique(TempData);
+					}
+					else
+					{
+						TempData->List.AddUnique(SkillData);
+					}
+				}
 			}
 		}
 	}

@@ -6,9 +6,8 @@
 #include "Blueprint/UserWidget.h"
 #include "GamePlayWidget.generated.h"
 
-/**
- * 
- */
+class USkillBarWidget;
+
 UCLASS()
 class SWORDOFVENGEANCE_API UGamePlayWidget : public UUserWidget
 {
@@ -16,5 +15,14 @@ class SWORDOFVENGEANCE_API UGamePlayWidget : public UUserWidget
 	
 public:
 
+	virtual void NativeConstruct() override;
 
+private:
+
+	UPROPERTY(meta = (BindWidget))
+	USkillBarWidget* SkillBar;
+
+public:
+
+	FORCEINLINE USkillBarWidget* GetSkillBarWidget() const { return SkillBar; };
 };

@@ -20,6 +20,7 @@ class UTargetSystemComponent;
 class USkillSystemComponent;
 class UGroomComponent;
 class UAttributeComponent;
+class ASlayPlayerController;
 
 UCLASS()
 class SWORDOFVENGEANCE_API ASlay : public ACharacter, public ITargetSystemInterface
@@ -112,6 +113,8 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Attribute", meta = (AllowPrivateAccess = true))
 	UAttributeComponent* Attribute;
 
+	ASlayPlayerController* SlayController;
+
 protected:
 
 	void Move(const FInputActionValue& Vaslue);
@@ -138,6 +141,7 @@ public:
 	FORCEINLINE UTargetSystemComponent* GetTargetSystem() const { return TargetSystem; };
 	FORCEINLINE USkillSystemComponent* GetSkillSystem() const { return SkillSystem; };
 	FORCEINLINE UAttributeComponent* GetAttribute() const { return Attribute; };
+	FORCEINLINE ASlayPlayerController* GetSlayController() const { return SlayController; };
 
 	FORCEINLINE void SetCanAttack(const bool& Value) { bCanAttack = Value; };
 	FORCEINLINE void SetActionState(const EActionState& NewState) { ActionState = NewState; };

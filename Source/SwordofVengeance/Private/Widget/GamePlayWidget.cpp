@@ -3,3 +3,8 @@
 
 #include "Widget/GamePlayWidget.h"
 #include "Widget/SkillSlotDragWidget.h"
+
+void UGamePlayWidget::NativeConstruct()
+{
+	Super::NativeConstruct();
+}
